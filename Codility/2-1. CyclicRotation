@@ -1,0 +1,70 @@
+====Question====
+
+An array A consisting of N integers is given. Rotation of the array means that each element is shifted right by one index, and the last element of the array is moved to the first place. For example, the rotation of array A = [3, 8, 9, 7, 6] is [6, 3, 8, 9, 7] (elements are shifted right by one index and 6 is moved to the first place).
+The goal is to rotate array A K times; that is, each element of A will be shifted to the right K times.
+
+Write a function:
+	function solution(A, K);
+that, given an array A consisting of N integers and an integer K, returns the array A rotated K times.
+
+For example, given
+    A = [3, 8, 9, 7, 6]
+    K = 3
+the function should return [9, 7, 6, 3, 8]. Three rotations were made:
+    [3, 8, 9, 7, 6] -> [6, 3, 8, 9, 7]
+    [6, 3, 8, 9, 7] -> [7, 6, 3, 8, 9]
+    [7, 6, 3, 8, 9] -> [9, 7, 6, 3, 8]
+
+For another example, given
+    A = [0, 0, 0]
+    K = 1
+the function should return [0, 0, 0]
+
+Given
+    A = [1, 2, 3, 4]
+    K = 4
+the function should return [1, 2, 3, 4]
+
+Assume that:
+
+N and K are integers within the range [0..100];
+each element of array A is an integer within the range [−1,000..1,000].
+In your solution, focus on correctness. The performance of your solution will not be the focus of the assessment.
+
+====Answer====
+
+function solution(A, K) {
+    // A의 길이가 K번만큼 회전한다면, 그대로 A를 Return한다.
+    if(A.length === K || A.length === K%A.length) return A;
+    // A의 길이보다 K가 크면, A의 길이만큼 K를 나머지 연산하여 최소로 연산할 수 있도록 한다.(중복 연산 X)
+    if(K>A.length) K= K%A.length;
+    //  옮길 부분을 잘라서 두 배열을 합친다.
+    let answer = A.slice(A.length-K, A.length).concat(A.slice(0, A.length-K));
+    
+    return answer;
+}
+
+/* Comment
+다른 사람들은 어떻게 구현했을까?
+
+function solution(A, K) {
+    // write your code in JavaScript (Node.js 6.4.0)
+    let rt_arr = [];
+    for(i in A) {
+        let idx = (Number(i)+K)%A.length;
+        rt_arr[idx]=A[i];        
+    }
+    return rt_arr;
+}
+
+출처: https://poltman.tistory.com/70 [내가 보는 세상 이야기]
+
+function solution(A, K) {
+const rotationNum = (K > A.length) ? (K % A.length) : K;
+return rotationNum === 0 ? A : [].concat(A.slice(-rotationNum), A.slice(0, A.length - rotationNum));
+}
+
+출처: https://im-developer.tistory.com/180 [Code Playground]
+*/
+
+위 코드를 보자면 FOR문을 이용하여 배열에 값을 삽입하거나, 나와 같이 slice와 Concat을 이용한 처리방법이 있다.
