@@ -1,0 +1,88 @@
+====Question====
+A non-empty array A consisting of N integers is given. The consecutive elements of array A represent consecutive cars on a road.
+
+Array A contains only 0s and/or 1s:
+
+0 represents a car traveling east,
+1 represents a car traveling west.
+The goal is to count passing cars. We say that a pair of cars (P, Q), where 0 ≤ P < Q < N, is passing when P is traveling to the east and Q is traveling to the west.
+
+For example, consider array A such that:
+
+  A[0] = 0
+  A[1] = 1
+  A[2] = 0
+  A[3] = 1
+  A[4] = 1
+We have five pairs of passing cars: (0, 1), (0, 3), (0, 4), (2, 3), (2, 4).
+
+Write a function:
+
+class Solution { public int solution(int[] A); }
+
+that, given a non-empty array A of N integers, returns the number of pairs of passing cars.
+
+The function should return −1 if the number of pairs of passing cars exceeds 1,000,000,000.
+
+For example, given:
+
+  A[0] = 0
+  A[1] = 1
+  A[2] = 0
+  A[3] = 1
+  A[4] = 1
+the function should return 5, as explained above.
+
+Write an efficient algorithm for the following assumptions:
+
+N is an integer within the range [1..100,000];
+each element of array A is an integer that can have one of the following values: 0, 1.
+
+
+====Answer====
+
+function solution(A) {
+    let answer = 0;
+    let countEast = 0;
+
+    A = A.slice(A.indexOf(0));
+    
+    for(let i = 0, len = A.length; i<len; i++) {
+        if(A[i]===0) {
+            countEast++;
+        } else {
+            answer += countEast;
+        }
+    }
+    
+    return answer > 1000000000 ? -1 : answer;
+}
+
+====Comment====
+ver 1. 
+처음에는 O(N^2)가 나올 Algorithm을 구현하여 TimeOver가 나왔다.
+A.forEach()를 이용하여 1을 counting하고, While문으로 A.slice()하여 반복하여 돌리는 방법으로 비효율적이였다.
+
+ver 2.
+O(N)으로 나올 Algorithm을 구현하였다.
+0을 counting하여, 1이 나올 때 마다 answer에 더해주는 식이다. 또한 1000000000를 넘으면 -1을 리턴한다.
+1,0,0,1... 이 나올 경우를 대비하여 A.slice()를 이용하여 잘라주었다. 이 방법보다 아래와 같은 방법을 사용하는 건 어떨까?
+새로운 배열을 할당하는 공간과, indexOf() Method를 사용한다는 것은 결국 배열을 해당 값을 가진 위치를 반환하기까지 
+순회한다는 것이기 때문이다. 그렇기 때문에 FOR문을 이용하여 INDEX만 찾아내는 것도 나쁘지 않아보였다.
+예를 들어
+A = A.slice(A.indexOf(0));
+    
+for(let i = 0, len = A.length; i<len; i++) {
+... 를 바꾸어
+	↓
+const zeroIndex = 0;
+for(let i = 0; i<A.length; i++) {
+     if(a===0) {
+	zeroIndex=i;
+	break;
+     }
+}
+for(let i = zeroIndex, len = A.length; i<len; i++) {
+... 로 변경하면 배열을 N번만큼 도는 것이다.
+
+하지만 전자의 방법이 편리하다.
