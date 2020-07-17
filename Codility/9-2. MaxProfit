@@ -1,0 +1,108 @@
+    ====Question====
+An array A consisting of N integers is given. It contains daily prices of a stock share for a period of N consecutive days. If a single share was bought on day P and sold on day Q, where 0 ≤ P ≤ Q < N, then the profit of such transaction is equal to A[Q] − A[P], provided that A[Q] ≥ A[P]. Otherwise, the transaction brings loss of A[P] − A[Q].
+
+For example, consider the following array A consisting of six elements such that:
+
+  A[0] = 23171
+  A[1] = 21011
+  A[2] = 21123
+  A[3] = 21366
+  A[4] = 21013
+  A[5] = 21367
+If a share was bought on day 0 and sold on day 2, a loss of 2048 would occur because A[2] − A[0] = 21123 − 23171 = −2048. If a share was bought on day 4 and sold on day 5, a profit of 354 would occur because A[5] − A[4] = 21367 − 21013 = 354. Maximum possible profit was 356. It would occur if a share was bought on day 1 and sold on day 5.
+
+Write a function,
+
+function solution(A);
+
+that, given an array A consisting of N integers containing daily prices of a stock share for a period of N consecutive days, returns the maximum possible profit from one transaction during this period. The function should return 0 if it was impossible to gain any profit.
+
+For example, given array A consisting of six elements such that:
+
+  A[0] = 23171
+  A[1] = 21011
+  A[2] = 21123
+  A[3] = 21366
+  A[4] = 21013
+  A[5] = 21367
+the function should return 356, as explained above.
+
+Write an efficient algorithm for the following assumptions:
+
+N is an integer within the range [0..400,000];
+each element of array A is an integer within the range [0..200,000].
+
+====Answer====
+
+function solution(A) {
+    const N = A.length;
+    let maxProfit = 0;
+    
+    let minPrice = A.map(i => 0);
+    let maxPrice = A.map(i => 0);
+    minPrice[0] = A[0];
+    maxPrice[N-1] = A[N-1];
+    for(let i = 1; i<N; i++) {
+        minPrice[i] = A[i] < minPrice[i-1] ? A[i] : minPrice[i-1];
+    }
+    for(let i = N-2; i >= 0; i--) {
+        maxPrice[i] = A[i] > maxPrice[i+1] ? A[i] : maxPrice[i+1];
+    }
+    
+    for(let i = 0; i<N; i++) {
+        const price = maxPrice[i]-minPrice[i];
+        if(price > maxProfit) maxProfit = price;
+    }
+    return maxProfit;
+}
+
+====Comment====
+https://app.codility.com/demo/results/training5F7C6W-DSN/
+Detected time complexity:
+O(N)
+
+처음에는 for문을 한번 돌려서 minPrice와 maxPrice로만 비교하였는데, 20%의 Correctness가 나와 다시 작성하였다.
+다시 구현한 결과로 100% task Score로 완성하였다.
+
+function solution(A) {
+    if(A.length === 1 || A.length === 0) return 0;
+
+    let minPrice = A[0];
+    let localMaxProfit = 0;
+    let globalMaxProfit = 0;
+
+    for(let i = 1; i < A.length; i++) {
+        localMaxProfit = A[i] - minPrice;
+        if(A[i] < minPrice) minPrice = A[i];
+
+        globalMaxProfit = Math.max(localMaxProfit, globalMaxProfit);
+    }
+
+    if(globalMaxProfit < 0) return 0; //이익을 보는 경우가 없이, 손해만 나는 경우
+
+    return globalMaxProfit;
+}
+https://sustainable-dev.tistory.com/22
+
+해당 알고리즘은 Kadane’s Algorithm, Dynamic Programming으로 기본적으로 복잡하게 반복해야 되는 문제를 여러 개의 문제로 나눈 후,
+그 문제들을 반복하지 않고, 그 값을 저장해두었다가 재 사용하는 기법이다.
+만약에 부분합의 최댓값을 구한다고 하면,
+Brute Force 접근법으로는 0번부터 N-1번까지 더한 값과 1번부터 N-1번까지 더한 값을 모두 구해서 비교하면 O(N^2)의 시간 복잡도를 가지는데,
+kadane's 알고리즘으로 O(N)의 시간 복잡도를 가질 수 있다.
+이를 기반으로 다시 알고리즘을 작성하였다.
+
+function solution(A) {
+    const N = A.length;
+    let maxProfit = 0;
+    let minPrice = A[0];
+    for(let i = 1; i < N; i++) {
+        const profit = A[i]-minPrice;
+        maxProfit = Math.max(profit, maxProfit);
+        if(minPrice > A[i]) minPrice = A[i];
+    }
+    
+    return maxProfit > 0 ? maxProfit : 0;
+}
+
+https://app.codility.com/demo/results/trainingUR5ZWF-N4T/
+O(N)의 시간 복잡도를 가진다.
