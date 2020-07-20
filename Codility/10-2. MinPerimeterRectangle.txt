@@ -1,0 +1,46 @@
+====Question====
+An integer N is given, representing the area of some rectangle.
+
+The area of a rectangle whose sides are of length A and B is A * B, and the perimeter is 2 * (A + B).
+
+The goal is to find the minimal perimeter of any rectangle whose area equals N. The sides of this rectangle should be only integers.
+
+For example, given integer N = 30, rectangles of area 30 are:
+
+(1, 30), with a perimeter of 62,
+(2, 15), with a perimeter of 34,
+(3, 10), with a perimeter of 26,
+(5, 6), with a perimeter of 22.
+Write a function:
+
+function solution(N);
+
+that, given an integer N, returns the minimal perimeter of any rectangle whose area is exactly equal to N.
+
+For example, given an integer N = 30, the function should return 22, as explained above.
+
+Write an efficient algorithm for the following assumptions:
+
+N is an integer within the range [1..1,000,000,000].
+
+====Answer====
+function solution(N) {
+    // area = A*B, perimeter = 2*(A+B)
+    // goal is to find the minimal perimeter of any rectangle
+    // 결국 perimeter의 최대값은 2,000,000,002이지만 Number.MAX_SAFE_INTEGER를 사용하였다.
+    let perimeter = Number.MAX_SAFE_INTEGER;
+    
+    for(let i = 1; i*i <= N; i++) {
+        const localPerimeter = ((N/i)+i)*2;
+        if(N % i === 0 && perimeter > localPerimeter) perimeter = localPerimeter;  
+    }
+    
+    return perimeter;
+}
+
+====Comment===
+Detected time complexity:
+O(sqrt(N))
+https://app.codility.com/demo/results/trainingT8XPJQ-JM9/
+
+N크기의 직사각형에서 perimeter의 최솟값을 찾는 문제이다. 
