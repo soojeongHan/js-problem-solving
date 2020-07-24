@@ -1,0 +1,139 @@
+====Question====
+A prime is a positive integer X that has exactly two distinct divisors: 1 and X. The first few prime integers are 2, 3, 5, 7, 11 and 13.
+
+A semiprime is a natural number that is the product of two (not necessarily distinct) prime numbers. The first few semiprimes are 4, 6, 9, 10, 14, 15, 21, 22, 25, 26.
+
+You are given two non-empty arrays P and Q, each consisting of M integers. These arrays represent queries about the number of semiprimes within specified ranges.
+
+Query K requires you to find the number of semiprimes within the range (P[K], Q[K]), where 1 ≤ P[K] ≤ Q[K] ≤ N.
+
+For example, consider an integer N = 26 and arrays P, Q such that:
+
+    P[0] = 1    Q[0] = 26
+    P[1] = 4    Q[1] = 10
+    P[2] = 16   Q[2] = 20
+The number of semiprimes within each of these ranges is as follows:
+
+(1, 26) is 10,
+(4, 10) is 4,
+(16, 20) is 0.
+Write a function:
+
+class Solution { public int[] solution(int N, int[] P, int[] Q); }
+
+that, given an integer N and two non-empty arrays P and Q consisting of M integers, returns an array consisting of M elements specifying the consecutive answers to all the queries.
+
+For example, given an integer N = 26 and arrays P, Q such that:
+
+    P[0] = 1    Q[0] = 26
+    P[1] = 4    Q[1] = 10
+    P[2] = 16   Q[2] = 20
+the function should return the values [10, 4, 0], as explained above.
+
+Write an efficient algorithm for the following assumptions:
+
+N is an integer within the range [1..50,000];
+M is an integer within the range [1..30,000];
+each element of arrays P, Q is an integer within the range [1..N];
+P[i] ≤ Q[i].
+Copyright 2009–2020 by Codility Limited. All Rights Reserved. Unauthorized copying, publication or disclosure prohibited.
+
+
+====Answer====
+function solution(N, P, Q) {
+    let prime = [];
+    let semiPrime = [];
+    let arraySemiPrime = new Array(N+1).fill(0);
+    let numberOfSemiPrimes = [];
+    
+    outer : for(let i = 2; i <= N; i++) {
+        inner : for(let j = 2; j < i; j++) {
+            if(i % j === 0) {
+                continue outer;
+            }
+        }
+        prime.push(i);
+    }
+    
+    outer : for(let i = 0; i < prime.length; i++) {
+        inner : for(let j = i; j<prime.length; j++) {
+            const squarePrime = prime[i]*prime[j];
+            if(squarePrime <= N) semiPrime.push(squarePrime);
+            else continue outer;
+        }
+    }
+    
+    semiPrime.sort((a,b)=>a-b)
+    
+    for(let i = 0; i < semiPrime.length; i++) {
+        const start = semiPrime[i];
+        const end = i === semiPrime.length-1 ? N+1 : semiPrime[i+1];
+        arraySemiPrime.fill(arraySemiPrime[semiPrime[i]-1]+1, start, end);
+    }
+    
+    for(let i = 0; i < P.length; i++) {
+        numberOfSemiPrimes.push(arraySemiPrime[Q[i]]-arraySemiPrime[P[i]-1]);
+    }
+    
+    return numberOfSemiPrimes;
+}
+====Comment====	
+O(N * log(log(N)) + M * N) or O(M * N ** (3/2))
+명확하게 떠오르는 로직이 없어서 최대한 간단하게 해봤는데, 시간복잡도가 너무 안좋게 나왔다. 다시 바꿔봐야겠다.
+Task Score = 66%, correctness = 100%, performance = 40%
+
+
+function getArray(N) { // 빈배열 만드는 함수
+    let arr = [];
+    for(let i = 0; i < N; i++){
+        arr.push(0);
+    }
+    return arr;
+}
+
+function solution(N, P, Q) { 
+    const size = P.length;
+    let result = P.map(i => 0);
+
+    let s = getArray(N + 1);
+    let i = 2;
+
+    while( i * i <= N) { //1~N까지의 범위의 수를 소수와 소수의 배수로 구분함
+        if(s[i] === 0) {
+            let j = i * i;
+            while(j <= N) {
+                if(s[j] === 0) {
+                    s[j] = i;
+                }
+
+                j+=i;
+            }
+        }
+        i++;
+    }
+
+    let semiCnt = getArray(N + 1);
+    let sum = 0;
+
+    for(let i = 1; i <= N; i++){
+        if(s[i] != 0) {
+            let j = i / s[i];
+            if(s[j] === 0) {
+                sum++;
+            }
+        }
+        semiCnt[i] = sum;
+    }
+
+    for(let i = 0; i < P.length; i++) {
+        let q = Q[i];
+        let p = P[i];
+
+        result[i] = semiCnt[q] - semiCnt[p-1];
+    }
+    return result;
+}
+
+O(N * log(log(N)) + M)
+https://app.codility.com/demo/results/trainingCQU7UZ-57S/
+나중에 와서 다시 풀어보자. 
