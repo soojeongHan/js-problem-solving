@@ -1,0 +1,94 @@
+====Question====
+An integer M and a non-empty array A consisting of N non-negative integers are given. All integers in array A are less than or equal to M.
+
+A pair of integers (P, Q), such that 0 ≤ P ≤ Q < N, is called a slice of array A. The slice consists of the elements A[P], A[P + 1], ..., A[Q]. A distinct slice is a slice consisting of only unique numbers. That is, no individual number occurs more than once in the slice.
+
+For example, consider integer M = 6 and array A such that:
+
+    A[0] = 3
+    A[1] = 4
+    A[2] = 5
+    A[3] = 5
+    A[4] = 2
+There are exactly nine distinct slices: (0, 0), (0, 1), (0, 2), (1, 1), (1, 2), (2, 2), (3, 3), (3, 4) and (4, 4).
+
+The goal is to calculate the number of distinct slices.
+
+Write a function:
+
+function solution(M, A);
+
+that, given an integer M and a non-empty array A consisting of N integers, returns the number of distinct slices.
+
+If the number of distinct slices is greater than 1,000,000,000, the function should return 1,000,000,000.
+
+For example, given integer M = 6 and array A such that:
+
+    A[0] = 3
+    A[1] = 4
+    A[2] = 5
+    A[3] = 5
+    A[4] = 2
+the function should return 9, as explained above.
+
+Write an efficient algorithm for the following assumptions:
+
+N is an integer within the range [1..100,000];
+M is an integer within the range [0..100,000];
+each element of array A is an integer within the range [0..M].
+
+====Wrong Answer====
+function solution(M,A) {
+    const N = A.length;
+    const sets = new Set();
+    const RESULT_MAX_VALUE = 1000000000;
+    let countOfSlice = 0;
+    let count = 0;
+    
+    for(let i = 0; i < N; i++) {
+        const value = A[i];
+        if(sets.has(value)) {
+            count = 0;
+            sets.clear();
+        }
+        sets.add(value);
+        count++;
+        countOfSlice += count;
+        if(countOfSlice > RESULT_MAX_VALUE) return RESULT_MAX_VALUE;
+    }
+    
+    return countOfSlice;
+}
+해당 오답은 Task Score : 40%로, 한가지 경우를 고려를 못하였다.
+만약에 A 배열의 값이 [3,4,5,5,5,1,2,3,5,3,3,2]라고 한다면,
+1) A[4]~A[7] === [5,1,2,3] => 1+2+3+4을 더하고,
+2) A[5]~A[8] === [1,2,3,5] => 3을 더해야하는데
+2)을 더하지 못해서 오답이 나온것이다.
+
+====Answer====
+function solution(M, A) {
+    // 반환할 값의 최대 값
+    const RESULT_MAX_VALUE = 1000000000;
+    const N = A.length;
+    
+    // 0부터 M까지의 숫자에서 한번이라도 중복되는 숫자인지 체크    
+    let appearance = new Array(M+1).fill(false);
+    // 고유한 숫자가 들어있는 배열을 자른 수(Number)를 반환한다.
+    let slices = 0;
+    
+    for(let front = 0, back = 0; back < N; back++) {
+        while(front < N && appearance[A[front]] === false) {
+            appearance[A[front]] = true;
+            slices += (front - back+1);
+            front++;
+        }
+        appearance[A[back]] = false;
+        if(slices >= RESULT_MAX_VALUE) return RESULT_MAX_VALUE;
+    }
+    // return Number
+    return slices;
+}
+====Comment====
+https://app.codility.com/demo/results/training7E2JMQ-N9N/
+Detected time complexity : O(N)
+
