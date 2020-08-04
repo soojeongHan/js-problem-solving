@@ -1,0 +1,36 @@
+====Question====
+https://www.hackerrank.com/challenges/caesar-cipher-1/problem
+====Answer====
+// Complete the caesarCipher function below.
+function caesarCipher(s, k) {
+    const alphabet = [];
+    const end = "z".charCodeAt();
+    for(let i = "a".charCodeAt(); i <= end; i++) {
+        alphabet.push(String.fromCharCode(i));
+    }
+    
+    const N = s.length;
+    let result = "";
+    for(let i = 0; i < N; i++) {
+        const index = s[i].charCodeAt(0);
+        // a:97 ~ z:122
+        if(index >= 97 && index <= 122) {
+            result += alphabet[returnAlphabetIndex(index+k)];
+        }
+        // A:65 ~ Z:90
+        else if(index >= 65 && index <= 90) {
+            result += alphabet[returnAlphabetIndex(index+k+32)].toUpperCase();
+        }
+        else result += s[i];
+    }
+    return result;
+}
+====Comment====
+카이사르의 암호는 문장 s와 숫자 k가 주어지면, 
+문장 s의 알파벳을 k만큼 돌린 알파벳으로 치환하여 반환한다.
+
+만약에 s = middle-Outz, k = 2이면,
+okffng-Qwvb으로 치환하여 반환한다.
+
+알파벳 하나마다 일일이 ascii code로 변환하여 계산하여 최종 문장에 더하는 것보다는,
+array alphabet을 만들어서 알파벳만 골라내서 접근하는 것이 낫다고 생각하여 구현하였다.
