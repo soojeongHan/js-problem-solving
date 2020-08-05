@@ -1,0 +1,17 @@
+====Question====
+https://www.hackerrank.com/challenges/beautiful-binary-string/problem
+====Answer====
+function beautifulBinaryString(b) {
+    // 0100101010
+    const array = [...b];
+    let result = [];
+    for(let i = 0; i < b.length-2; i++) {
+        const value = array.slice(i, i+3).join('');
+        if(value === "010") {
+            result.push(value);
+            i += 2;
+        }
+    }
+    return result.length;
+}
+====Comment====
