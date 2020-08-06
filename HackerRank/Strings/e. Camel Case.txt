@@ -1,0 +1,22 @@
+====Question====
+https://www.hackerrank.com/challenges/camelcase/problem
+
+====Answer====
+function camelcase(s) {
+    const N = s.length;
+    let countWord = 1;
+    // saveChangesInTheEditor
+    for(let i = 0; i < N; i++) {
+        if(s[i] === s[i].toUpperCase()) countWord++;
+    }
+    return countWord;
+}
+
+====Comment====
+해당 문제는 camelCase로 프로그래밍에서는 변수나 함수의 명칭에 공백을 허용하지 않으므로,
+문장안에 단어를 구분할 때, 처음에 소문자로 시작하여 새로운 단어의 첫글자를 대문자로 한다.
+
+만약에 s = "saveChangesInTheEditor"라고 하면,
+1. 글자 하나마다 대문자로 변환하여, 변환 전 글자와 비교한다.
+  글자가 같다 => 대문자 => countWord에 1을 더한다.
+위와 같은 논리를 거쳐 countWord를 반환한다.
