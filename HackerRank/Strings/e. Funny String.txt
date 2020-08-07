@@ -1,0 +1,31 @@
+====Question====
+https://www.hackerrank.com/challenges/funny-string/problem
+====Answer====
+function funnyString(s) {
+    const N = s.length;
+    const arrayAscii = [...s].map(i=>i.charCodeAt());
+    const reverseArrayAscii = [...arrayAscii].reverse();
+    for(let i = 0; i < N-1; i++) {
+        if(Math.abs(arrayAscii[i]-arrayAscii[i+1]) !== Math.abs(reverseArrayAscii[i]-reverseArrayAscii[i+1])) return "Not Funny";
+    }
+    return "Funny";
+}
+====Comment====
+s = "acxz"이라면,
+글자에 대해서 ascii code로 변환하고, 배열로 만든다.
+arrayAscii = [97,99,120,122]
+그리고 arrayAscii의 순서를 반대로 정렬한다.
+reverseArrayAscii = [122,120,99,97]
+두 배열의 (n번째 값 - n+1번째 값)의 절대값을 비교하여,
+  1. 같지않으면 "Not Funny"를 반환한다.
+배열의 모든 값을 순회했으면, "Funny"를 반환한다.
+-------------------------------------------------------------------------------------------------------------------
+처음에, arrayAscii.reverse() 사용했다가, arrayAscii 배열에도 똑같이 reverse() 처리되었다.
+reverse function은 shallow copy를 통해서 처리되기 때문이다.
+그래서 ...를 사용하여, 새로운 배열을 만들어서 반대로 정렬하였다.
+-------------------------------------------------------------------------------------------------------------------
+https://medium.com/@olgamelnykovych/funny-string-b1bf037867f7
+위의 링크를 통해서 들어가면, 나와 비슷하게 문제를 풀이한 것을 볼 수 있다.
+1. 문자열 s를 배열로 만드는 것.
+2. 배열 s의 거꾸로 정렬된 배열을 만드는 것.
+3. n, n+1번째 값을 뺀 값을 절대값으로 만들어 비교하는 것.
