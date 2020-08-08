@@ -1,0 +1,24 @@
+====Question====
+https://www.hackerrank.com/challenges/hackerrank-in-a-string/problem
+====Answer====
+function hackerrankInString(s) {
+    const stack = [];
+    
+    let word = "hackerrank";
+    for(let i = word.length-1; i >= 0; i--) {
+        stack.push(word[i]);
+    }
+
+    const N = s.length;
+    for(let i = 0; i < N; i++) {
+        if(stack[stack.length-1] === s[i]) stack.pop();
+    }
+    
+    const YES = "YES";
+    const NO = "NO";
+    return stack.length === 0 ? YES : NO;
+}
+====Comment====
+단순하게 "hackerrank"라는 글자가 
+문장 s에 순서대로 있는지 판단하여 YES 또는 NO를 반환한다.
+순서대로 있는지 판단하기 위하여 Stack의 자료구조를 이용하여 구현하였다.
