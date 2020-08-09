@@ -1,0 +1,11 @@
+====Question====
+https://www.hackerrank.com/challenges/alternating-characters/problem
+====Answer====
+function alternatingCharacters(s) {
+    let result = 1;
+    [...s].forEach((value,index,array)=> {
+        if(value !== array[index+1] && array.length !== index+1) result++;
+    })
+    return s.length-result;
+}
+====Comment====
