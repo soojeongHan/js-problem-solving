@@ -1,0 +1,21 @@
+====Question====
+https://www.hackerrank.com/challenges/gem-stones/problem
+====Answer====
+function gemstones(arr) {
+
+    const N = arr.length;
+    const boolean = new Array(26).fill(0);
+    arr.forEach(i=>{
+        new Set([...i]).forEach(j=> {
+            boolean[j.charCodeAt()-97]++;
+        })
+    })
+    
+    let result = 0;
+    for(let i = 0; i < boolean.length; i++) {
+        if(boolean[i]===N) result++;
+    }
+    return result;
+}
+====Comment====
+다시 풀어보자
