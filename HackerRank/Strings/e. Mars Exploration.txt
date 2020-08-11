@@ -1,0 +1,18 @@
+====Question====
+https://www.hackerrank.com/challenges/mars-exploration/problem
+====Answer====
+function marsExploration(s) {
+    const N = s.length;
+    let countChangedChar = 0;
+    
+    for(let i = 0; i < N; i++) {
+        if(s[i] !== "S" && (i%3 === 0 || i%3 === 2)) countChangedChar++;    
+        else if(s[i] !== "O" && i%3 === 1) countChangedChar++; 
+    }
+    return countChangedChar;
+}
+====Comment====
+문장 s = "SOSSOSAS"가 있다고 하면,
+SOS, SOS, SOS가 있어야하지만 SOS, SOS, SAS가 있기 때문에
+A => O로 바꾸고 반환해야 할 값을 +1한다.
+계산이 모두 끝나면 반환한다.
