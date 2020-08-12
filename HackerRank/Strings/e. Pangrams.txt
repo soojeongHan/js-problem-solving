@@ -1,0 +1,28 @@
+====Question====
+https://www.hackerrank.com/challenges/pangrams/problem
+====Answer====
+function pangrams(s) {
+    const N = s.length;
+    const aAsciiCode = "a".charCodeAt();
+    const zAsciiCode = "z".charCodeAt();
+    const spacebarAsciiCode = " ".charCodeAt();
+
+    let lengthAlphabet = zAsciiCode-aAsciiCode+1;
+    const boolean = new Array(lengthAlphabet).fill(false);
+    
+    for(let i = 0; i < N; i++) {
+        if(s[i].charCodeAt() !== spacebarAsciiCode) {
+            const index = s[i].toLowerCase().charCodeAt()-aAsciiCode;
+            if(!boolean[index]) {
+                lengthAlphabet--;
+                boolean[index] = true;
+            }
+        }
+    }
+
+    return lengthAlphabet === 0 ? "pangram" : "not pangram";
+}
+====Comment====
+문장 s가 있을 때, 모든 알파벳이 한번 씩 쓰이는지 판단하는 문제이다.
+만약에 s = "We promptly judged antique ivory buckles for the next prize"가 있을 때,
+대소문자 상관없이 알파벳이 모두 쓰였기 때문에 "pangram"을 반환한다. 
