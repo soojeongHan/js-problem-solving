@@ -1,0 +1,26 @@
+====Question====
+https://www.hackerrank.com/challenges/reduced-string/problem
+
+====Answer====
+function superReducedString(s) {
+    const EMPTY_STRING = "Empty String";
+    const N = s.length;
+    const stack = [s[0]];
+    
+    for(let i = 1; i < N; i++) {
+        if(stack[stack.length-1] !== s[i]) stack.push(s[i]);
+        else stack.pop();
+    }
+    
+    if(stack.length === 0) return EMPTY_STRING;
+    return stack.reduce((i,j)=> i+j);    
+}
+
+====Comment====
+만약에 s = "aaabccddd"라고 하면,
+Stack을 이용한다. 
+1. 마지막으로 삽입한 스택의 값과 현재 값을 비교한다.
+  값이 같다 => Stack에 현재 값을 삽입한다.
+  값이 다르다 => 마지막에 삽입한 Stack에 있는 값을 제거한다. 
+aaabccddd => abccddd => abddd => abd를 반환한다. 
+만약에 글자가 없으면 "Empty String"을 반환한다.
