@@ -1,0 +1,28 @@
+====Question====
+https://www.hackerrank.com/challenges/the-love-letter-mystery/problem
+====Answer====
+function theLoveLetterMystery(s) {
+    const array = [...s];
+    const N = array.length;
+    let result = 0;
+    for(let index = 0; index < Math.trunc(N/2); index++) {
+        const firstValue = array[index].charCodeAt();
+        const secondValue = array[N-index-1].charCodeAt();
+        result += Math.abs(firstValue-secondValue);
+    }
+    return result;
+}
+====Comment====
+palindrome 문제이다.
+회문이라고 불리며, 앞·뒤 어느쪽으로 읽어도 같아지는 숫자를 말한다.
+abc => aba
+abcba => abcba
+abcd => abba
+cba => aba
+와 같은 글자로 바꾸면 된다.
+문자의 길이가 홀수면 가운데는 별도로 순회할 필요가 없고,
+문자의 길이가 짝수면 half 만큼 순회하면 된다.
+그래서 소수점을 절사하는 Math.trunc를 사용하여, half만큼 돌되 홀수면 가운데의 전 요소까지만 순회한다.
+i=0부터 순회하여 i과 N-i-1을 charCodeAt() 함수를 통하여 ascii Code로 변환시켜 비교한다.
+조건에 보면, a에서 b로 변환하는 것은 안되지만, b에서 a로 변환하는 것은 된다. 물론 a가 변환할 수 있는 최소 문자이다.
+i와 N-i-1의 요소가 같으면 되는 것이므로, 두 값을 빼고 절대값으로 변환하여 result에 더한다.
