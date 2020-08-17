@@ -1,0 +1,47 @@
+====Question====
+https://www.hackerrank.com/challenges/weighted-uniform-string/problem
+====Answer====
+function weightedUniformStrings(s, queries) {
+    const result = [];
+    const arrayS = [];
+
+    const N = s.length;
+    const aAsciiCode = "a".charCodeAt();
+    let count = 1;
+    let last = s[0].charCodeAt()-aAsciiCode+1;
+    arrayS.push(last);
+    for(let i = 1; i < N; i++) {
+        const index = s[i].charCodeAt()-aAsciiCode+1;
+        if(index === last) {
+            count++;
+            arrayS.push(count*index);
+        }
+        else {
+            last = index;
+            count = 1;
+            arrayS.push(index);
+        }
+    }
+
+    arrayS.sort((i,j) => i-j);
+    console.log(arrayS);
+    // 9, 7, 8, 12, 5
+    for(let i = 0; i < queries.length; i++) {
+        result.push(binarySearch(arrayS, queries[i], 0, arrayS.length-1) ? "Yes" : "No");
+    }
+
+    return result;
+}
+
+function binarySearch(array, value, start, end) {
+    if(start > end) return false;
+    const half = Math.floor((start + end)/2);
+    if(array[half] === value) return true;
+    if(array[half] >= value) return binarySearch(array, value, start, half-1);
+    else return binarySearch(array, value, half+1, end);
+}
+====Comment====
+문장 s = "aaabbbbcccddd"이고, queries = [5,9,7,8,12,5]라고 해보자.
+a를 alphabet의 첫번째이므로 1이고, 순서대로 b = 2, c = 3... z= 26이다.
+a = 1, aa = 2, aaa = 3, ... bbbb = 2*4 = 8로 쌍을 지을 수 있는 알파벳끼리는 합쳐서 배열에 넣는다.
+배열에 넣은 값을 정렬하고, 이진 검색을 통하여 queries에 있는 값과 일치하면 "Yes"를, 아니면 "No"를 반환한다. 
