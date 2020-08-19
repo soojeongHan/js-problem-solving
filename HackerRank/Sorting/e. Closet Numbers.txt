@@ -1,0 +1,43 @@
+====Question====
+https://www.hackerrank.com/challenges/closest-numbers/problem
+====Answer====
+// Complete the closestNumbers function below.
+function closestNumbers(arr) {
+    let min = Number.MAX_SAFE_INTEGER;
+    const positiveArr = arr.filter(value => value >= 0).sort((i,j)=> i-j);
+    const negativeArr = arr.filter(value => value < 0).sort((i,j)=> i-j);
+    
+    let result = [];
+    for(let i = 0; i < negativeArr.length; i++) {
+        const value = negativeArr[i];
+        const nextValue = negativeArr[i+1];
+        const firstPositiveValue = positiveArr[0];
+        // 1. 음수의 다음 값과의 차
+        if(min > nextValue-value && i !== negativeArr.length-1) {
+            min = nextValue-value;
+            result = [value, nextValue];
+        }
+        else if(min === nextValue-value) result.push(value, nextValue);
+        // 2. 양수의 첫번째 값의 차
+        const diff = Math.abs(value-firstPositiveValue);
+        if(min > diff) {
+            min = diff;
+            result = [value, firstPositiveValue];
+        }
+        else if(min === diff) result.push(value, firstPositiveValue);
+    }
+    // 양수
+    for(let i = 0; i < positiveArr.length-1; i++) {
+        const value = positiveArr[i];
+        const nextValue = positiveArr[i+1];
+        // 양수의 다음 값과의 차
+        if(min > nextValue - value) {
+            min = nextValue - value
+            result = [value, nextValue];
+        }
+        else if(min === nextValue - value) result.push(value, nextValue);
+    }
+
+    return result;
+}
+====Comment====
