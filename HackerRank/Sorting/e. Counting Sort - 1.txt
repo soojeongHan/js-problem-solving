@@ -1,0 +1,9 @@
+====Question====
+https://www.hackerrank.com/challenges/countingsort1/problem
+====Answer====
+function countingSort(arr) {
+    const countingArray = new Array(100).fill(0);
+    arr.forEach(value=> countingArray[value]++);
+    return countingArray;
+}
+====Comment====
