@@ -1,0 +1,16 @@
+====Question====
+https://www.hackerrank.com/challenges/countingsort2/problem
+====Answer====
+function countingSort(arr) {
+    const countingArray = new Array(100).fill(0);
+    arr.forEach(value => countingArray[value]++);
+    const result = countingArray.reduce((result, value, index)=>{
+        while(value > 0) {
+            result.push(index);
+            value--;
+        }
+        return result;
+    }, []);
+    return result;
+}
+====Comment====
