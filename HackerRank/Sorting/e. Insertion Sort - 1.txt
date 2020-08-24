@@ -1,0 +1,22 @@
+====Question====
+https://www.hackerrank.com/challenges/insertionsort1/problem
+====Answer====
+function insertionSort1(n, arr) {
+    const value = arr[n-1];
+    let i = n-2;    
+    while(i >= 0) {
+        if(value > arr[i]) {
+            arr.splice(i+1, 1, value);
+            console.log(arr.join(' '));
+            break;
+        }
+        else arr[i+1] = arr[i];
+        console.log(arr.join(' '));
+        i--;
+    }
+    if(i === -1) {
+        arr[i+1] = value;
+        console.log(arr.join(' '));
+    }
+}
+====Comment====
