@@ -1,0 +1,18 @@
+====Question====
+https://www.hackerrank.com/challenges/insertionsort2/problem
+====Answer====
+function insertionSort2(n, arr) {
+    for(let i = 1; i < arr.length; i++) {
+        let j = i;
+        while(j > 0) {
+            if(arr[j] < arr[j-1]) {
+                const tmp = arr[j];
+                arr[j] = arr[j-1];
+                arr[j-1] = tmp;
+            }
+            j--;
+        }
+        console.log(...arr);
+    }
+}
+====Comment====
