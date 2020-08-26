@@ -1,0 +1,7 @@
+====Question====
+https://www.hackerrank.com/challenges/tutorial-intro/problem
+====Answer====
+function introTutorial(V, arr) {
+    return arr.indexOf(V);
+}
+====Comment====
