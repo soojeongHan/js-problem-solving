@@ -1,0 +1,18 @@
+====Question====
+https://www.hackerrank.com/challenges/runningtime/problem
+====Answer====
+function runningTime(arr) {
+    let countSwap = 0;
+    for(let i = 0; i < arr.length; i++) {
+        for(let j = i+1; j >= 0; j--) {
+            if(arr[j-1] > arr[j]) {
+                const tmp = arr[j-1];
+                arr[j-1] = arr[j];
+                arr[j] = tmp;
+                countSwap++;
+            }
+        }
+    }
+    return countSwap;
+}
+====Comment====
