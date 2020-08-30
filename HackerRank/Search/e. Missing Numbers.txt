@@ -1,0 +1,21 @@
+====Question====
+https://www.hackerrank.com/challenges/missing-numbers/problem
+====Answer====
+function missingNumbers(arr, brr) {
+    const arrN = arr.length;
+    const brrN = brr.length;
+    
+    arr.sort((i,j)=> i-j);
+    brr.sort((i,j)=> i-j);
+
+    const result = brr.reduce((preValue, curValue, index) => {
+        if(arr[index-preValue.length] !== curValue) {
+            preValue.push(curValue);
+        }
+        return preValue;
+    }, []);
+
+    return [... new Set(result)];
+}
+====Comment====
+나중에 다시 풀어보자.
