@@ -1,0 +1,21 @@
+====Question====
+https://www.hackerrank.com/challenges/sherlock-and-array/problem
+====Answer====
+function balancedSums(arr) {
+    const sum = arr.reduce((preValue, curValue) => preValue+curValue);
+    const N = arr.length;
+
+    let left = 0;
+    let right = sum;
+    if(right-arr[0] === 0 || right-arr[N-1] === 0) return "YES";
+    right-=arr[0];
+    for(let i = 1; i < arr.length; i++) {
+        left += arr[i-1];
+        right -= arr[i];
+        if(left === right) return "YES";
+    }
+
+    return "NO";
+}
+====Comment====
+코드가 깔끔하지 못하다.. 바꿀수 있도록 하자.
