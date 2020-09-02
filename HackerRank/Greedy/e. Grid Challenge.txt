@@ -1,0 +1,21 @@
+====Question====
+https://www.hackerrank.com/challenges/grid-challenge/problem
+====Answer====
+function gridChallenge(grid) {
+    const sorted = grid.map(value => {
+        return [...value].sort((i,j)=> {
+            if(i.length === j.length) {
+                return i > j ? 1 : -1;
+            }
+            return i.length-j.length;
+        })
+    })
+    const N = grid.length;
+    for(let row = 0; row < N; row++) {
+        for(let column = 0; column < N-1; column++) {
+            if(sorted[column][row] > sorted[column+1][row]) return "NO";
+        }
+    }
+    return "YES";
+}
+====Comment====
