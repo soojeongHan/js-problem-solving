@@ -1,0 +1,15 @@
+====Question====
+https://www.hackerrank.com/challenges/largest-permutation/problem
+====Answer====
+function largestPermutation(k, arr) {
+    const sorted = [...arr].sort((a, b) => b - a);
+    const swap = (a, b) => ([arr[a], arr[b]] = [arr[b], arr[a]]) && k--;
+    
+    for (let i = 0; i < arr.length && k > 0; i++) {
+        if (arr[i] === sorted[i]) continue;
+        swap(i, arr.indexOf(sorted[i], i));
+    }
+
+    return arr;
+}
+====Comment====
