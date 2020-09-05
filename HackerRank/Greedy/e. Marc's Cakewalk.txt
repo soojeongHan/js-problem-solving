@@ -1,0 +1,8 @@
+====Question====
+https://www.hackerrank.com/challenges/marcs-cakewalk/problem
+====Answer====
+function marcsCakewalk(calorie) {
+    return calorie.sort((i,j)=> j-i).reduce((preValue, curValue, index)=> preValue += curValue*Math.pow(2,index));
+}
+====Comment====
+내림차순으로 정렬하여, 해당 값을 2의 index 제곱을 곱하여 누적시켜 반환한다.
