@@ -1,0 +1,22 @@
+====Question====
+https://www.hackerrank.com/challenges/mark-and-toys/problem
+====Answer====
+function maximumToys(prices, k) {
+    return prices.sort((i,j) => i-j).reduce((preValue, curValue) => {
+        if(curValue+preValue.totalPrice <= k) {
+            preValue.totalPrice += curValue;
+            preValue.countBuying++;
+        }
+        return preValue;
+    }, {
+        totalPrice : 0,
+        countBuying : 0,
+    }).countBuying;
+}
+====Comment====
+정해진 양에서 최대한 많은 갯수를 구하는 단순한 문제이다.
+prices = [3,6,4,2,5,10], k = 9라고 했을 때,
+정해진 k부터 구할 수 있는 갯수는 다음과 같다.
+[3,6], [3,4,2], [3,2], [6,2], [3,5]... 등
+여기서 가장 많은 갯수는 [3,4,2]로 3개이다.
+오름차순으로 정렬해서 값을 구하고 반환하였다.
