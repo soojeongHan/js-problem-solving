@@ -1,0 +1,20 @@
+====Question====
+https://www.hackerrank.com/challenges/maximum-perimeter-triangle/problem
+====Answer====
+function maximumPerimeterTriangle(sticks) {
+    // 1. 두변의 길이의 합이 한변의 길이보다 클 때,
+    // 2. 세변의 길이가 모두 같을 때,
+    sticks.sort((i,j)=> i-j);
+    const result = [];
+    for(let i = 0; i < sticks.length-2; i++) {
+        let j = i+2;
+        while(sticks[i] + sticks[i+1] > sticks[j]) {
+            result.pop();
+            result.push([sticks[i], sticks[i+1], sticks[j]]);
+            j++;
+        };
+        if(sticks[i] === sticks[i+1] === sticks[i+2]) result.push([sticks[i], sticks[i+1], sticks[i+2]]);
+    }
+    return result.length > 0 ? result.sort((a,b)=> b[2]-a[2])[0] : [-1];
+}
+====Comment====
