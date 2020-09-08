@@ -1,0 +1,14 @@
+====Question====
+https://www.hackerrank.com/challenges/jim-and-the-orders/problem
+====Answer====
+function jimOrders(orders) {
+    return orders.map((value, index)=> [value[0]+value[1], index+1] ,[])
+    .sort((i,j) => i[0]-j[0])
+    .reduce((preValue,curValue)=> preValue.concat(curValue[1]) ,[]);
+}
+====Comment====
+주문 번호와 준비시간을 합쳐서 오름차순으로 정렬하여, 해당 Index를 출력하는 문제이다.
+1. 배열에 map을 이용하여, 주문번호와 준비시간을 더한 값과 Index에 1을 더한 값을 배열에 삽입하였다.
+2. 주문번호와 준비시간을 더한 값을 중심으로 오름차순 정렬을 하였다.
+3. 차례대로 index를 배열에 합쳤다.
+4. 해당 배열을 반환한다.
