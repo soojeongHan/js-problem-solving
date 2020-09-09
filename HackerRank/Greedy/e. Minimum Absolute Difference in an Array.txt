@@ -1,0 +1,15 @@
+====Question====
+https://www.hackerrank.com/challenges/minimum-absolute-difference-in-an-array/problem
+====Answer====
+function minimumAbsoluteDifference(arr) {
+    const N = arr.length;
+    return arr.sort((i,j) => i-j).reduce((preValue, curValue, index, array)=> {
+        return index+1 !== N ? Math.min(preValue, Math.abs(curValue-array[index+1])) : preValue;
+    }, Number.MAX_SAFE_INTEGER);
+}
+====Comment====
+Sort를 통해서 문제를 풀었다.
+각각의 값에 대하여 최소의 차를 가지는 값을 구하는 문제이기 때문에,
+Sort를 하면 순서대로 정렬되기 때문에, 현재 가지는 값과 다음 위치에 있는 값만을 비교하면 된다.
+그러면 결국 모든 값을 앞, 뒤로 비교하여 최솟값을 가진다.
+
