@@ -1,0 +1,19 @@
+====Question====
+https://www.hackerrank.com/challenges/priyanka-and-toys/problem
+====Answer====
+function toys(w) {
+    return w.sort((i,j)=>i-j).reduce((preValue, curValue, index, array) => {
+        if(preValue.value === -1 || curValue-preValue.value > 4) {
+            preValue.container++;
+            preValue.value = curValue;
+        }
+        return preValue;
+    }, {value : -1, container : 0}).container
+}
+====Comment====
+배열을 정렬해서, 오는 숫자부터 +5되는 숫자까지 모두 container에 담을 수 있다.
+해당 작업을 반복해서 container의 수를 반환하는 문제이다.
+배열 w = [1,2,3,4,5,10,11,12,13,21]이 있다고 하면,
+container는 [1,2,3,4,5], [10,11,12,13], [21]를 담고있는다고 보면 된다.
+3개의 container를 가지고 있으니, 3을 반환하면 된다.
+실제 문제에서는 sorted 되있지 않으니, 정렬한다.
