@@ -1,0 +1,40 @@
+====Question====
+https://www.hackerrank.com/challenges/two-arrays/problem
+====Answer====
+function twoArrays(k, A, B) {
+    const sortedA = A.sort((i,j) => i-j);
+    const sortedB = B.sort((i,j) => j-i);
+    for(let i = 0; i < A.length; i++) {
+        if(sortedA[i]+sortedB[i] < k) return "NO";
+    }
+    return "YES";
+}
+====Comment====
+function twoArrays(k, A, B) {
+    var isPossible = true;
+    A = A.sort((a, b) => a - b);
+    B = B.sort((a, b) => b - a);
+    for(let i = 0; i < A.length; i++){
+        if(A[i] + B[i] < k){
+            isPossible = false;
+            break;
+        }
+    }
+    return isPossible ? "YES" : "NO"
+}
+
+function twoArrays(k, A, B) {
+   let arr=[]
+   let a = A.sort((a,b)=> a-b)
+   let b = B.sort((a, b) => b - a)
+   for (let i = 0; i < a.length; i++){
+      a[i]+b[i]>=k? arr.push("YES"):arr.push("NO")
+   } 
+   return arr.reduce((acc, val)=> val==="NO"? acc="NO":acc)
+}
+
+다른 사람의 풀이도 봤는데, 비슷한걸로 봐서는 내 코드중에서 정정할 부분을 찾지 못하겠다.
+해당 문제는 단순하게 A는 오름차순으로, B는 내림차순으로 정렬하여
+똑같은 index를 가진 A의 값과 B의 값을 더한 값이 k보다 작으면 "NO"를 반환하고,
+모든 값이 조건을 만족하면 "YES"를 반환하는 문제이다.
+
