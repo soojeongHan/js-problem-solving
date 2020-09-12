@@ -1,0 +1,27 @@
+====Question====
+https://www.hackerrank.com/challenges/candies/problem
+====Answer====
+function candies(n, arr) {
+    const start = [1];
+    for(let i = 0; i < n-1; i++) {
+        if(arr[i+1]>arr[i]) start.push(start[i]+1);
+        else start.push(1);
+    }
+    const end = [1];
+    for(let i = n-1; i > 0; i--) {
+        if(arr[i-1]>arr[i]) end.push(end[end.length-1]+1);
+        else end.push(1);
+    }
+    const reverseEnd = end.reverse();
+    let sum = 0;
+    for(let i = 0; i < n; i++) {
+        sum += Math.max(start[i], end[i]);
+    }
+    return sum;
+}
+====Comment====
+풀기 어렵지는 않지만 난해한 문제였다. 
+인접한 배열의 요소들끼리 비교하여 값을 도출해내야해서
+시작부터 끝까지 배열의 요소를 비교하여 값을 넣었고,
+마찬가지로 끝부터 처음까지 배열의 요소를 비교하여 값을 넣었다.
+그리고 두 배열의 같은 index의 값을 비교하여 가장 큰 값을 더하여 반환하였다.
