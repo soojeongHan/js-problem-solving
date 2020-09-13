@@ -1,0 +1,90 @@
+====Question====
+https://www.hackerrank.com/challenges/pylons/problem
+====Answer====
+TYPE 3.
+function pylons(k, arr) {
+    const N = arr.length;
+    const midDistance = k-1;
+    
+    let index = 0;
+    let count = 0;
+    
+    while(N > index) {
+        let midIndex = index + midDistance;
+        const limitIndex = index-midDistance > 0 ? index-midDistance : 0;
+        while(midIndex >= limitIndex) {
+            if(arr[midIndex] === 1) {
+                count++;
+                index = midIndex + k;
+                break;
+            }
+            midIndex--;
+        }
+        if(midIndex+1 === limitIndex && arr[limitIndex] === 0) return -1;        
+    }
+    return count;
+}
+====Comment====
+고민하다가 3번에 걸쳐서 문제를 풀이하였다.
+문제 해설.
+  array = [0,1,1,1,1,0], k = 2라고 해보자.
+  목표는 모든 도시에 에너지를 공급하는 것이다.
+  array의 값 중 1은 plant를 건설할 수 있고, 0은 plant를 건설할 수 없다.
+  건설하게 되면 해당 요소를 중심으로 index-k-1, index+k-1만큼 에너지를 공급할 수 있다.
+  예를 들어, array[1]에 plant를 건설하게 된다면, array[0]과 array[2]에 에너지를 공급할 수 있는 것이다.
+문제 풀이.
+  처음에는 배열 전체를 모두 순회하여, 해당 요소가 0일때마다, 1일때마다 조건을 구현하여 작성하였지만, 
+  해당 코드로는 너무 비효율적이라는 것을 깨닫고 다시 작성하였다.
+  최종적으로 정한 생각은 블록 단위로 생각하는 것이다. k = 2이라면, 블록의 길이는 3이다.
+  예를 들어, array의 [0,1,1], [1,1,0]이 블록인 것이다.
+  블록의 중간에 plant를 건설할 수 있다면 최선이지만, 1이 아니라면 배열을 거꾸로 순회하여 1을 찾으면 건설하는 것이 최선의 선택을 하는 것이다.
+  그래서 해당 블록에 k에 따라 중간을 정하고, 중간에서부터 블록의 처음까지 순회하여 1을 찾는다.
+  여기서 중요한점은 중간부터 처음까지 순회했기 때문에, 중간에서 끝까지는 순회하지 않았다.
+  그래서 중간에서부터 처음까지 순회하여 1을 찾지 못했을 경우에는, 그 전 블록의 중간에서 끝까지의 값을 순회하여 1을 찾는다.
+  그렇게 값을 순회했을 때 1을 찾지못하면 -1을 리턴한다.
+
+TYPE 1.
+function pylons(k, arr) {
+    let count = 0;
+    let firstZeroIndex = -1;
+    for(let i = 0; i < arr.length; i++) {
+        let buildPlantIndex = i+k-1;
+        while(buildPlantIndex >= i) {
+            if(arr[buildPlantIndex] === 1) {
+                count++;
+                i = buildPlantIndex+k-1;
+                break;
+            }
+            if(buildPlantIndex === i && arr[buildPlantIndex] === 0) return -1;
+            buildPlantIndex--;
+        }
+    }
+    return count;
+}
+13/23 test cases failed :(
+
+TYPE 2.
+function pylons(k, arr) {
+    const N = arr.length;
+    const midDistance = k-1;
+    
+    let index = 0;
+    let count = 0;
+    
+    while(N > index) {
+        let midIndex = index + midDistance;
+        while(midIndex >= index-midDistance) {
+            if(midIndex === index-midDistance && arr[midIndex] === 0) return -1;
+            
+            if(arr[midIndex] === 1) {
+                count++;
+                index = midIndex + k;
+                break;
+            }
+            midIndex--;
+        }
+    }
+    return count;
+}
+Terminated due to timeout :(
+23개의 Test case 중에서 8번이 timeout 되었다.
