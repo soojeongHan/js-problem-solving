@@ -1,0 +1,25 @@
+====Question====
+https://www.hackerrank.com/challenges/angry-children/problem
+====Answer====
+function maxMin(k, arr) {
+    const N = arr.length;
+    return arr.sort((i,j) => i-j).reduce((preValue, curValue, index, array) => {
+        if(N >= index+k) {
+            const unfairness = array[index+k-1]-curValue;
+            return preValue > unfairness ? unfairness : preValue;
+        }
+        return preValue;
+    }, Number.MAX_SAFE_INTEGER);
+}
+====Comment====
+arr 요소 중에서 k개 만큼 선택해서,
+k개의 최대 max 값 - 최소 min 값 중에서 가장 작은 값을 반환하는 문제이다.
+
+arr= [1,2,3,4,10,20,30,40,100,200], 
+k = 4, 
+unfairness = max(subArr) - min(subArr)라고 하자.
+
+1. 오름차순으로 정렬한다.
+2. 그러면 subArr = [1,2,3,4]을 선택한다.(k개 만큼) 그리고 unfairness를 구한다.
+   다음 [2,3,4,10]을 선택해서 unfairness를 구하는 작업을 반복한다.
+3. unfairness 값 중에서 가장 작은 값을 반환한다.
