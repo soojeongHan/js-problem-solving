@@ -1,0 +1,15 @@
+====Question====
+https://www.hackerrank.com/challenges/palindrome-index/problem
+====Answer====
+function palindromeIndex(string) {
+  const s = string.split('');
+  for (let i = 0; i < s.length / 2; i++) {
+    if (s[i] !== s[s.length - i - 1]) {
+      let arr = s.slice(i + 1, s.length - i);
+      return arr.join('') === arr.reverse().join('') ? i : s.length - i - 1;
+    }
+  }
+  return -1;
+}
+====Comment====
+코드를 참조하여 구현하였다.
