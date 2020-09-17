@@ -1,0 +1,7 @@
+====Question====
+https://www.hackerrank.com/challenges/lonely-integer/problem
+====Answer====
+function lonelyinteger(a) {
+    return a.reduce((preValue, curValue) => preValue^curValue);
+}
+====Comment====
