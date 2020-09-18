@@ -1,0 +1,8 @@
+https://app.codility.com/demo/results/training2EFHDZ-9QS/
+function solution(N) {
+    const oneBit = "1";
+    const binaryN = N.toString(2);
+    const zeroCounted = binaryN.slice(binaryN.indexOf(oneBit), binaryN.lastIndexOf(oneBit)).split(oneBit)
+           .map(zero => zero.length);
+    return zeroCounted.length ? Math.max(...zeroCounted) : 0 ;
+}
