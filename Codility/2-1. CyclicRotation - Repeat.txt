@@ -1,0 +1,9 @@
+Task Score : 100%
+https://app.codility.com/demo/results/trainingQ52BMG-T9P/
+
+function solution(A, K) {
+    const N = A.length;
+    const countRotation = K%N;
+    return countRotation !== N ? A.slice(N-countRotation).concat(A.slice(0,N-countRotation)) : A ;
+}
+
