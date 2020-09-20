@@ -1,0 +1,10 @@
+https://app.codility.com/demo/results/trainingJ2K4X5-7A4/
+Detected time complexity:
+O(N) or O(N*log(N))
+
+function solution(A) {
+    return A.reduce((i,j)=> i^j);
+}
+
+XOR은 같은 숫자끼리 연산하면 0이 나온다.
+즉, 배열 안에 유일한 숫자가 하나만 있다고 가정하면, XOR 연산을 통하여 도출하는 것이 제일 빠르다.
