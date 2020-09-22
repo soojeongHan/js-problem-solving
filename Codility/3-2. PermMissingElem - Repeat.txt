@@ -1,0 +1,10 @@
+https://app.codility.com/demo/results/trainingSJ279N-Q7J/
+Detected time complexity:
+O(N) or O(N * log(N))
+
+function solution(A) {
+    if(!A.length) return 1;
+    const n = A.length+1;
+    return (n + (n * n - n) / 2) - A.reduce((i,j)=> i+j);
+}
+
