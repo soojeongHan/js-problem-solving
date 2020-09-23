@@ -1,0 +1,19 @@
+====Question====
+https://app.codility.com/programmers/lessons/3-time_complexity/tape_equilibrium/
+====Answer====
+function solution(A) {
+    return A.reduce((preValue, curValue, index)=> {
+        if(index !== A.length-1) {
+            preValue.left += curValue;
+            preValue.right -= curValue;
+            preValue.min = Math.min(Math.abs(preValue.left - preValue.right), preValue.min);
+        }
+        return preValue;
+    }, {
+        left : 0,
+        right : A.reduce((preValue,curValue) => preValue+curValue, 0),
+        min : Number.MAX_SAFE_INTEGER
+    }).min;
+}
+====Comment====
+https://app.codility.com/demo/results/trainingDBBTQM-38P/
