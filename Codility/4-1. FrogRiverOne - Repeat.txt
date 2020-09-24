@@ -1,0 +1,15 @@
+====Question====
+https://app.codility.com/programmers/lessons/4-counting_elements/frog_river_one/
+====Answer====
+function solution(X, A) {
+    return A.reduce((preValue, curValue, index) => {
+        if(X >= curValue) preValue.sets.add(curValue);
+        if(X === preValue.sets.size && preValue.answer === -1) preValue.answer = index;
+        return preValue;
+    }, {
+        answer : -1,
+        sets : new Set()
+    }).answer;
+}
+====Comment====
+https://app.codility.com/demo/results/training6WCGBX-B9Q/
