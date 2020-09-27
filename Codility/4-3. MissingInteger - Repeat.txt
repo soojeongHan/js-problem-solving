@@ -1,0 +1,10 @@
+====Question====
+https://app.codility.com/programmers/lessons/4-counting_elements/missing_integer/
+====Answer====
+function solution(A) {
+    return [...new Set(A)].sort((i,j) => i-j)
+    .filter((value, index)=> value > 0)
+    .reduce((result, value) => result === value ? ++result : result, 1);
+}
+====Comment====
+https://app.codility.com/demo/results/trainingDB5DDC-VP2/
