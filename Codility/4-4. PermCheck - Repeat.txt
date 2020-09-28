@@ -1,0 +1,14 @@
+====Question====
+https://app.codility.com/programmers/lessons/4-counting_elements/perm_check/
+====Answer====
+function solution(A) {
+    return A.sort((i,j) => i-j).reduce((result, value) => {
+        if(result.number === value) {
+            result.number++;
+        }
+        else result.isPermutation = false;
+        return result;
+    }, {number : 1, isPermutation : true}).isPermutation ? 1 : 0;
+}
+====Comment====
+https://app.codility.com/demo/results/trainingDHKXZV-EMZ/
