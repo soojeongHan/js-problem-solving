@@ -1,0 +1,8 @@
+====Question====
+https://app.codility.com/programmers/lessons/6-sorting/distinct/
+====Answer====
+function solution(A) {
+    return new Set(A).size;
+}
+====Comment====
+https://app.codility.com/demo/results/trainingJPQUHQ-S9P/
