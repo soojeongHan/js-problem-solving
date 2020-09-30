@@ -1,0 +1,16 @@
+====Question====
+https://app.codility.com/programmers/lessons/6-sorting/max_product_of_three/
+====Answer====
+function solution(A) {
+    const arr = A.sort((i,j)=> i-j);
+    const length = arr.length;
+    if(arr.length > 3) {
+        const first = arr[0]*arr[1]*arr[length-1];
+        const second = arr[length-3]*arr[length-2]*arr[length-1];
+        return first > second ? first : second;
+    }
+    else return arr[0] * arr[1] * arr[2];
+}
+====Comment====
+3개의 요소를 곱했을 때 최대의 값을 반환하는 문제이다.
+https://app.codility.com/demo/results/trainingGTT3TN-DX8/
