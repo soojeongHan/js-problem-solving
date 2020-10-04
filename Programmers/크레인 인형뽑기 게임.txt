@@ -1,0 +1,25 @@
+====Answer====
+const solution = (board, moves) => {
+    const transposeBoard = board.reduce((result, value) => 
+        value.map((_, i) => [...(result[i] || []), value[i]] )
+    , []).map(value => value.reverse().filter(filterValue => filterValue !== 0));
+    
+    return moves.reduce((result , value) => {
+        const pop = transposeBoard[value-1].pop();
+        console.log(pop);
+        if(!pop) return result;
+        else if(pop === result.basket[result.basket.length-1]) {
+            result.basket.pop();
+            result.count += 2;
+        }
+        else result.basket.push(pop);
+        return result;
+    },{
+        basket : [],
+        count : 0,
+    }).count;
+    
+};
+====Comment====
+코드를 참조하였다. 테스트는 통과하는데, 테스트케이스는 통과하지못하여 다른 코드를 봤는데
+문제 배열이 어떻게 주어지는지 다르게 이해하여 풀었기때문에 문제가 틀렸다.
