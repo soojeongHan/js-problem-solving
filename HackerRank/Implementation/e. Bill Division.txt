@@ -1,0 +1,8 @@
+====Question====
+https://www.hackerrank.com/challenges/bon-appetit/problem
+====Answer====
+function bonAppetit(bill, k, b) {
+    const test = (bill.reduce((result, value) => value + result) - bill[k]) / 2;
+    console.log(b === test ? "Bon Appetit" : b-test);
+}
+====Comment====
