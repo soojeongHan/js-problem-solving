@@ -1,0 +1,30 @@
+function solution(participant, completion) {
+    
+    participant.sort();
+    completion.sort();
+    let LengthOfParticipant = participant.length;
+    
+    for(let i = 0; i<LengthOfParticipant; i++) {
+        if(participant[i] !== completion[i]) return participant[i];
+    }
+    return "ERROR";
+}
+
+/*
+정확성  테스트
+테스트 1 〉	통과 (2.08ms, 37.5MB)
+테스트 2 〉	통과 (2.01ms, 37.5MB)
+테스트 3 〉	통과 (3.11ms, 37.6MB)
+테스트 4 〉	통과 (6.41ms, 37.9MB)
+테스트 5 〉	통과 (6.78ms, 37.9MB)
+효율성  테스트
+테스트 1 〉	통과 (101.61ms, 53.4MB)
+테스트 2 〉	통과 (128.24ms, 61MB)
+테스트 3 〉	통과 (177.29ms, 67.9MB)
+테스트 4 〉	통과 (175.25ms, 70.4MB)
+테스트 5 〉	통과 (169.03ms, 70.1MB)
+채점 결과
+정확성: 50.0
+효율성: 50.0
+합계: 100.0 / 100.0
+*/
