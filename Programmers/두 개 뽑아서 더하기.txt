@@ -1,0 +1,10 @@
+====Answer====
+const solution = numbers => {
+    return [...new Set(numbers.reduce((result, value, index, array) => 
+        result.concat(array.slice(index+1).reduce((r, v) => {
+            r.push(v+value); 
+            return r;
+        } , []))
+    , []))].sort((i,j) => i-j);
+};
+====Comment====
