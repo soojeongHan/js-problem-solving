@@ -1,0 +1,7 @@
+====Answer====
+const solution = (a, b) => {
+    return new Date(Date.UTC(2016,a-1,b)).toLocaleDateString("ko-KR", {
+        weekday : 'long'
+    }).substring(0, 3).toUpperCase();
+}
+====Comment====
