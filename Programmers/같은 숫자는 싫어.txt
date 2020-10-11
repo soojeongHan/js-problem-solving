@@ -1,0 +1,13 @@
+====Answer====
+const solution = arr => {
+    return arr.reduce((result, value) => {
+        if(result[result.length-1] !== value) result.push(value);
+        return result;
+    }, []);
+}
+====Comment====
+function solution(arr)
+{
+    return arr.filter((val,index) => val != arr[index+1]);
+}
+좀 더 단순하게 코드를 짤 수 있는 생각을 기르자.
