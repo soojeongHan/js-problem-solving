@@ -1,0 +1,8 @@
+====Answer====
+const solution = (s) => {
+    const lowerCaseS = [...s.toLowerCase()];
+    const pLength = lowerCaseS.filter(value => value === "p").length;
+    const yLength = lowerCaseS.filter(value => value === "y").length;
+    return pLength - yLength ? false : true;
+}
+====Comment====

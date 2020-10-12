@@ -1,0 +1,7 @@
+====Answer====
+const solution = (strings, n) => {
+    return strings.sort((i,j)=> 
+        i[n] === j[n] ? (i > j) - (i < j) : i.charCodeAt(n)-j.charCodeAt(n)
+    );
+}
+====Comment====

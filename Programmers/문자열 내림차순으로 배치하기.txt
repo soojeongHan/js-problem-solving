@@ -1,0 +1,21 @@
+====Answer====
+const solution = (s) => {
+    const re = /[a-z]/;
+    const sort = arr => arr.sort((i,j) => j.charCodeAt()-i.charCodeAt());
+    
+    const arr = [...s].reduce((result, value) => {
+        re.test(value) ? result[0].push(value) : result[1].push(value);   
+        return result;
+    }, [[],[]]);
+    
+    return sort(arr[0]).concat(sort(arr[1])).join("")
+}
+====Comment====
+const solution = s => 
+    return s.split("").sort().reverse().join("");  
+}
+단순하게 작성하는 방법이 있었다.
+코드를 작성할때 항상 sort 안에서 i와 j를 비교하는 방식으로 하다보니까, 문자열을 정렬할 수 없었다.
+그래서 charCodeAt으로 UTF-16 코드로 변환하여 비교하였다.
+
+
