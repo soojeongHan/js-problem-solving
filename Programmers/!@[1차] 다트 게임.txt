@@ -1,0 +1,106 @@
+====Answer====
+# Type 1 : 배열로 한번 나누어 처리
+const createOneResultArray = result => {
+    const constraint = ["S","D","T","*","#"];
+    return [...result].reduce((r,v,end) => {
+        return constraint.includes(v)
+            ? (r.arr.push(result.slice(r.start, end+1))
+               , r.start = end+1
+               , r)
+            : r;
+    }, {start : 0, arr : []}).arr;
+}
+
+const solution = (result) => {
+    // s = single, d = double, t = triple
+    // * = 해당 점수와 바로 전에 얻은 점수를 각 2배로 *
+    // # = 해당 점수를 -1
+    
+    // "1S2D*3T" => [ '1S', '2D', '*', '3T' ]로 변환
+    const oneResultArray = createOneResultArray(result);
+
+    const area = {"S": 1, "D" : 2, "T": 3};
+     
+    return oneResultArray.reduce((r,v) => {
+        const length = r.length;
+        if(v === "*") {
+            if(r[length-1]) r[length-1] *= 2;
+            if(r[length-2]) r[length-2] *= 2;
+        } else if(v === "#") {
+            if(r[length-1]) r[length-1] *= -1;
+        } else {
+            const num = v.length === 3 ? v.slice(0,2) : v[0];
+            const powerN = area[v[v.length-1]];
+            r.push(Number(num) ** powerN);
+        }
+        return r;
+    }, []).reduce((r,v) => r+v);
+}
+
+# Type 2 : 한번에 처리
+const solution = dartResult => {
+    // r : result, v : value
+    const area = {"S" : 1, "D" : 2, "T" : 3}
+    return [...dartResult].reduce((r,v,end) => {
+        const length = r.arr.length;
+        if(v === "*") {
+            if(r.arr[length-2]) r.arr[length-2] *= 2;
+            if(r.arr[length-1]) r.arr[length-1] *= 2;
+            r.start++;
+        } else if(v === "#") {
+            if(r.arr[length-1]) r.arr[length-1] *= -1;
+            r.start++;
+        } else if(area[v]) {
+            const power = area[v];
+            const number = dartResult.slice(r.start, end);
+            r.start = end+1;
+            r.arr.push((+number) ** power)
+        }
+        return r;
+    }, {arr : [], start : 0}).arr
+        .reduce((v,r) => v+r);
+}
+====Comment====
+어디서 오류가 생기는지 몰라서 40분 넘게 걸렸다. 
+reduce((r,v,i) => ... 에서의 index와 if(r[length-1])에서 length-1로 할 것을 i-1로 해서 null값이 들어가는 경우가 생겼다.
+조금 더 논리적으로 생각해보자.
+
+정확성  테스트
+	                        # Type 1 	                       # Type 2
+테스트 1 〉	통과 (0.23ms, 30.2MB)	통과 (0.18ms, 30.1MB)
+테스트 2 〉	통과 (0.23ms, 29.9MB)	통과 (0.19ms, 30.3MB)
+테스트 3 〉	통과 (0.23ms, 30MB)	통과 (0.18ms, 29.9MB)
+테스트 4 〉	통과 (0.24ms, 30.3MB)	통과 (0.19ms, 30.1MB)
+테스트 5 〉	통과 (0.26ms, 30.1MB)	통과 (0.19ms, 30MB)
+테스트 6 〉	통과 (0.24ms, 30.1MB)	통과 (0.18ms, 30.2MB)
+테스트 7 〉	통과 (0.22ms, 30.1MB)	통과 (0.20ms, 30.1MB)
+테스트 8 〉	통과 (0.26ms, 30MB)	통과 (0.19ms, 30.1MB)
+테스트 9 〉	통과 (0.23ms, 30.3MB)	통과 (0.21ms, 30MB)
+테스트 10 〉	통과 (0.24ms, 29.9MB)	통과 (0.19ms, 30MB)
+테스트 11 〉	통과 (0.30ms, 30.1MB)	통과 (0.26ms, 30.2MB)
+테스트 12 〉	통과 (0.26ms, 29.9MB)	통과 (0.19ms, 29.9MB)
+테스트 13 〉	통과 (0.24ms, 30MB)	통과 (0.20ms, 30.2MB)
+테스트 14 〉	통과 (0.24ms, 29.8MB)	통과 (0.18ms, 30.2MB)
+테스트 15 〉	통과 (0.24ms, 30.1MB)	통과 (0.18ms, 30MB)
+테스트 16 〉	통과 (0.23ms, 30.2MB)	통과 (0.28ms, 29.9MB)
+테스트 17 〉	통과 (0.24ms, 30.1MB)	통과 (0.38ms, 30.2MB)
+테스트 18 〉	통과 (0.25ms, 30MB)	통과 (0.20ms, 30.1MB)
+테스트 19 〉	통과 (0.23ms, 29.9MB)	통과 (0.26ms, 30MB)
+테스트 20 〉	통과 (0.24ms, 29.9MB)	통과 (0.20ms, 30.1MB)
+테스트 21 〉	통과 (0.24ms, 29.8MB)	통과 (0.18ms, 30MB)
+테스트 22 〉	통과 (0.29ms, 30.1MB)	통과 (0.28ms, 30.1MB)
+테스트 23 〉	통과 (0.24ms, 30MB)	통과 (0.18ms, 30MB)
+테스트 24 〉	통과 (0.31ms, 30MB)	통과 (0.18ms, 30.1MB)
+테스트 25 〉	통과 (0.24ms, 30MB)	통과 (0.18ms, 30.1MB)
+테스트 26 〉	통과 (0.24ms, 30.1MB)	통과 (0.18ms, 30.1MB)
+테스트 27 〉	통과 (0.24ms, 30.1MB)	통과 (0.18ms, 30MB)
+테스트 28 〉	통과 (0.24ms, 30.1MB)	통과 (0.19ms, 30.1MB)
+테스트 29 〉	통과 (0.24ms, 30.1MB)	통과 (0.27ms, 30MB)
+테스트 30 〉	통과 (0.24ms, 29.9MB)	통과 (0.18ms, 30.1MB)
+테스트 31 〉	통과 (0.24ms, 30MB)	통과 (0.17ms, 30.3MB)
+테스트 32 〉	통과 (0.24ms, 30MB)	통과 (0.18ms, 30.1MB)
+
+채점 결과
+정확성: 100.0
+합계: 100.0 / 100.0
+
