@@ -1,0 +1,5 @@
+====Answer====
+const solution = (s) => {
+    return Number(s);
+}
+====Comment====

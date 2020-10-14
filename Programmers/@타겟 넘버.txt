@@ -1,0 +1,13 @@
+====Answer====
+const solution = (numbers, target) => {
+    return dfs(numbers, target, 0, 0);
+}
+
+const dfs = (numbers, target, num, answer) => {
+    const newArr = [...numbers];
+    const temp = newArr.pop();
+    return numbers.length == 0 ? (target === num ? ++answer : answer )
+                             : answer = dfs(newArr, target, num+temp, answer)
+                                      + dfs(newArr, target, num-temp, answer);
+}
+====Comment====
