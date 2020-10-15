@@ -1,0 +1,22 @@
+====Answer====
+// 에라토스테네스의 체를 이용한다.
+const countPrimeNumber = n => {
+    const bool = new Array(n+1).fill(true);
+    for(let i = 2; i**2 <= n; i++) {
+        console.log("i : ", i);
+        console.log("i**2 : ", i**2);
+        if(bool[i] === true) {
+            for(let j = i**2; j <= n; j+=i) {
+                console.log(j);
+                bool[j] = false;
+            }
+        }
+    }
+    // -2을 하는 이유 : 0과 1은 제외한다.
+    return bool.filter(tr => tr).length-2;
+}
+
+const solution = (n) => {
+    return countPrimeNumber(n);
+}
+====Comment====
