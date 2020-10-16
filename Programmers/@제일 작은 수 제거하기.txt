@@ -1,0 +1,23 @@
+====Answer====
+const solution = (arr) => {
+    const minValue = Math.min(...arr);
+    const removeMinValueFromArray = arr.filter(v => v !== minValue);
+    return removeMinValueFromArray.length 
+        ? removeMinValueFromArray 
+        : [-1];
+}
+====Comment====
+통과했지만, 주의해야 할 것이 있다.
+    #1
+        const minValue = Math.min(...arr);
+        const removeMinValueFromArray = arr.filter(v => v !== minValue);
+    #2
+        const removeMinValueFromArray = arr.filter(v => v !== Math.min(...arr));
+#1과 #2의 차이는 엄청나다.
+프로그래밍할 때 변수를 최대한 적게 만들겠다고, #2와 같이 만들면
+Math.min(...arr)를 filter를 할 때마다 만들게 된다면 시간 복잡도가 기하급수적으로 증가할 것이다.
+#1의 시간복잡도는 arr를 전체 한번 순회하고, 또한 filter로 arr 전체 한번 순회하기 때문에 2n => O(n)이다.
+하지만 #2의 시간복잡도는 arr에 대해서 filter를 할 때마다 arr를 순회하여 min값을 찾기 때문에 n**2 => O(n**2)이다.
+Programmers에서는 실제로 코드를 돌려본다면,
+TestCase 1번의 #1의 실행 시간은 4000ms가 소요되고, #2의 실행시간은 3ms가 소요된다.
+주의하도록 하자.

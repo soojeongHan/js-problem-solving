@@ -1,0 +1,6 @@
+====Answer====
+const solution = (n) => {
+    const answer = new Array(Math.trunc(n/2)).fill("수박").join("");
+    return n % 2 === 0 ? answer : answer+"수";
+}
+====Comment====
