@@ -1,0 +1,24 @@
+====Answer====
+const solution = (prior, loc) => {
+    
+    const sortedPrior = [...prior].sort((i,j) => j-i);
+    const work = [];
+    
+    let priorObj = [...prior].map((v,i) => {return {value : v, index : i}});
+    for(let i = 0; i < sortedPrior.length; i++) {
+        const value = priorObj.findIndex(v => v.value === sortedPrior[i]);
+        work.push(priorObj[value]);
+        priorObj = priorObj.slice(value+1,).concat(priorObj.slice(0, value));
+    }
+    
+    for(let i = 0; i < work.length; i++) {
+        const value = work[i];
+        if(value.index === loc) return i+1;
+    }
+}
+====Comment====
+아 뭔가.. 애매하다.
+다른 사람이 구현한 코드를 보면,
+1) 배열의 첫번째 값을 빼내서 값을 비교한다.
+2) 해당 값보다 리스트의 값이 크면, 리스트에 push해서 배열의 맨 뒤에 삽입한다.
+3) 하지만 작으면, count를 증가시키고, 해당 값의 인덱스가 loc와 같으면 count를 반환한다.
