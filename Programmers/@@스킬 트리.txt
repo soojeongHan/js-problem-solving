@@ -1,0 +1,15 @@
+====Answer====
+const solution = (skill, skill_trees) => {
+    return skill_trees.reduce((result, value) => {
+        const skillArr = [...skill];
+        return [...value].every(v => {
+            const index = skillArr.indexOf(v);
+            return index === 0 
+                ? (skillArr.shift(), true) 
+                : index === -1
+                    ? true
+                    : false
+        }) ? ++result : result;
+    }, 0);
+}
+====Comment====
