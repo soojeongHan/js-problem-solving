@@ -1,0 +1,36 @@
+const solution = s => {
+  const range = [...Array(s.length)].map((_, i) => i + 1);
+ 
+  return Math.min(...range.map(i => {
+      console.log(`결과물 ${i} : `, compress(s, i));
+      console.log('================================')
+      return compress(s, i).length;
+  }));
+};
+
+// s = string
+// n = index
+const compress = (s, n) => {
+  const make = ([a, l, c]) => `${a}${c > 1 ? c : ''}${l}`;  
+  const chunks = chunk(s, n);
+  const reduceChunks = chunks.reduce(
+      ([a, l, c], e) => {
+          console.log(e, l , " , ", e === l);
+          console.log("true : ", [a,l,c+1]);
+          console.log("false : " , [make([a, l, c]), e, 1]);
+          return e === l ? [a, l, c + 1] : [make([a, l, c]), e, 1]
+      },
+      ['', '', 0]
+    );
+  console.log("chunks : ", chunks);
+  console.log("reduceChunks : ", reduceChunks);
+    
+  return make(
+    reduceChunks
+  );
+};
+// s = string
+// i = index
+
+const chunk = (s, n) =>
+  s.length <= n ? [s] : [s.slice(0, n), ...chunk(s.slice(n), n)];
