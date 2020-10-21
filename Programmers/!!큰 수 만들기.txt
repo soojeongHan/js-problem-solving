@@ -1,0 +1,14 @@
+====Answer====
+const solution = (number, k) => {
+    const arr = [...number].reduce((r, v) => {
+        while(k > 0 && r[r.length-1] < v) {
+            r.pop();
+            k--;
+        }
+        r.push(v);
+        return r;
+    }, []);
+    return arr.slice(0, arr.length-k).join("");
+}
+====Comment====
+재귀로 생각하다가 안풀려서 풀이를 참고하여 구현하였다.
