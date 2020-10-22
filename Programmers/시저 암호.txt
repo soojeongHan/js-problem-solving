@@ -1,0 +1,13 @@
+====Answer====
+const solution = (s, n) => {
+    const length = 26;
+    return [...s].map(value => {
+        if(value === " ") return value;
+        const v = value.charCodeAt();
+        const cipher = v+n;
+        return v >= "A".charCodeAt() && v <= "Z".charCodeAt()
+            ? String.fromCharCode(cipher > "Z".charCodeAt() ? cipher-length : cipher)
+            : String.fromCharCode(cipher > "z".charCodeAt() ? cipher-length : cipher);
+    }).join("");
+}
+====Comment====
