@@ -1,0 +1,75 @@
+====Answer====
+const makeUV = (str) => {
+    const stack = [];
+    let left = 0;
+    let right = 0;
+    let index = 0;
+    [...str].every((v,i) => {
+        stack.push(v);
+        v === "(" ? left++ : right++;
+        return left === right ? (index = i, false) : true;
+    })
+    return { u : stack.join(""), v: str.slice(index+1,)};
+}
+
+const isCorrectFair = (str) => {
+    const stack = [];
+    return [...str].every(v => {
+        return v === "(" 
+            ? (stack.push(v) , true)
+            : stack.pop() === "(" ? true : false
+    })
+}
+
+const deleteReverseArr = str => {
+    return [...str].slice(1, str.length-1).map(v => v === "(" ? ")" : "(").join("");
+}
+
+const solution = (p) => {
+    // 1. 입력이 빈 문자열인 경우, 빈 문자열을 반환합니다. 
+    if(p.length < 1) return "";
+    // 2. 문자열 w를 두 "균형잡힌 괄호 문자열" u, v로 분리
+    const uv = makeUV(p);
+    // 3. 문자열 u가 "올바른 괄호 문자열"인지 판단
+    return isCorrectFair(uv.u)
+        // 3-1. 문자열 u가 올바른 괄호 문자열이 맞다면 ? 문자열 v에 대해 1단계부터 다시 수행하고, u에 이어 붙인 후 반환
+        ? uv.u + solution(uv.v)
+        /* 4. 문자열 u가 "올바른 괄호 문자열"이 아니라면 ? 아래 과정을 수행한다.
+            4-1. 빈 문자열에 첫 번째 문자로 '('를 붙입니다. 
+            4-2. 문자열 v에 대해 1단계부터 재귀적으로 수행한 결과 문자열을 이어 붙입니다. 
+            4-3. ')'를 다시 붙입니다. 
+            4-4. u의 첫 번째와 마지막 문자를 제거하고, 나머지 문자열의 괄호 방향을 뒤집어서 뒤에 붙입니다. 
+            4-5. 생성된 문자열을 반환합니다.
+        */
+        : "(" + solution(uv.v) + ")" + deleteReverseArr(uv.u)
+}
+====Comment====
+정확성  테스트
+테스트 1 〉	통과 (0.19ms, 29.8MB)
+테스트 2 〉	통과 (0.23ms, 30.1MB)
+테스트 3 〉	통과 (0.20ms, 30.1MB)
+테스트 4 〉	통과 (0.31ms, 29.9MB)
+테스트 5 〉	통과 (0.28ms, 30MB)
+테스트 6 〉	통과 (0.28ms, 30.1MB)
+테스트 7 〉	통과 (0.27ms, 30.1MB)
+테스트 8 〉	통과 (0.20ms, 29.9MB)
+테스트 9 〉	통과 (0.26ms, 30MB)
+테스트 10 〉	통과 (0.25ms, 29.9MB)
+테스트 11 〉	통과 (0.32ms, 30MB)
+테스트 12 〉	통과 (0.29ms, 30.1MB)
+테스트 13 〉	통과 (0.35ms, 29.9MB)
+테스트 14 〉	통과 (0.44ms, 30MB)
+테스트 15 〉	통과 (0.49ms, 29.9MB)
+테스트 16 〉	통과 (0.70ms, 29.9MB)
+테스트 17 〉	통과 (0.55ms, 30MB)
+테스트 18 〉	통과 (0.90ms, 30MB)
+테스트 19 〉	통과 (1.06ms, 30.2MB)
+테스트 20 〉	통과 (1.01ms, 29.9MB)
+테스트 21 〉	통과 (0.77ms, 30MB)
+테스트 22 〉	통과 (0.59ms, 30.2MB)
+테스트 23 〉	통과 (0.84ms, 30MB)
+테스트 24 〉	통과 (0.52ms, 30MB)
+테스트 25 〉	통과 (0.73ms, 30.2MB)
+채점 결과
+정확성: 100.0
+합계: 100.0 / 100.0
