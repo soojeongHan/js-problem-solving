@@ -1,0 +1,13 @@
+====Answer====
+const sumDivisor = n => {
+    let count = 0;
+    for(let i = 1; i*2 <= n; i++ ) {
+        if(n % i === 0) count += i;
+    }
+    return count+n;
+}
+
+const solution = (n) => {
+    return sumDivisor(n);
+}
+====Comment====
