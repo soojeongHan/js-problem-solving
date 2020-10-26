@@ -1,0 +1,12 @@
+====Answer====
+const solution = (n, lost, reserve) => { 
+    const realLost = lost.filter((l)=>!reserve.includes(l)) 
+    let realReserve = reserve.filter((r)=>!lost.includes(r)) 
+    return n - 
+    realLost.filter(a => { 
+        const b = realReserve.find(r => Math.abs(r-a) <= 1) 
+        if(!b) return true 
+        realReserve = realReserve.filter(r => r !== b) }
+    ).length;
+}
+====Comment====
