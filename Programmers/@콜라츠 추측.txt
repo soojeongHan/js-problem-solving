@@ -1,0 +1,16 @@
+====Answer====
+const collatz = (num, result) => {
+    if(result > 500) return -1;
+    return num === 1 
+        ? result 
+        : collatz(num % 2 ? (num * 3)+1 : num / 2, ++result);
+}
+
+const solution = (num) => {
+    // 주어진 수가 1이 될때까지 작업을 반복한다. => 모든 수를 1로 만들수 있다.
+    // 1-1. 입력된 수가 짝수라면 2로 나눈다.
+    // 1-2. 입력된 수가 홀수라면 3을 곱하고 1을 더한다.
+    // 2. 결과로 나온 수에 같은 작업을 1이 될때까지 반복한다.
+    return collatz(num, 0);
+}
+====Comment====
