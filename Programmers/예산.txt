@@ -1,0 +1,26 @@
+====Answer====
+const solution = (d, budget) => {
+    return d
+        .sort((i,j) => i-j)
+        .reduce((r, v) => {
+            return r.sum+v <= budget
+                ? (r.sum+=v, r.countDepart+=1, r)
+                : r;
+        }, {sum : 0, countDepart : 0}).countDepart;
+}
+====Comment====
+사실 효율을 찾자면
+const solution = (d, budget) => {
+    const sortedArr = d.sort((i,j) => i-j);
+    let sum = 0;	
+    let countDepartment = 0;
+    for(let i = 0, N = sortedArr.length; i < N; i++) {
+        if(sum+sortedArr[i] <= budget) {
+            sum += sortedArr[i]; 
+            countDepartment++;
+        }
+        else break;
+    }
+    return countDepartment;
+}
+와 같이 해당 조건을 만족하면 for문에 break를 거는 것이 편하다.
