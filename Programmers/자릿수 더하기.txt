@@ -1,0 +1,5 @@
+====Answer====
+const solution = n => {
+    return [...String(n)].reduce((result, value) => result+=Number(value) , 0);
+}
+====Comment====
