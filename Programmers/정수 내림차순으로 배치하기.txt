@@ -1,0 +1,5 @@
+====Answer====
+const solution = (n) => {
+    return Number([...String(n)].sort().reverse().join(""));
+}
+====Comment====
