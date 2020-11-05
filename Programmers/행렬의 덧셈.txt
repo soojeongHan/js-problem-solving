@@ -1,0 +1,19 @@
+====Answer====
+# 1
+const solution = (arr1, arr2) => {
+    const answer = [];
+    for(let i = 0; i< arr1.length; i++) {
+        answer.push([]);
+        for(let j = 0; j < arr1[i].length; j++) {
+            answer[i].push(arr1[i][j]+arr2[i][j]);
+        }
+    }
+    return answer;
+}
+
+# 2
+const solution = (arr1, arr2) => {
+    // v = value, i = index, iv = inner value, ii = inner index
+    return arr1.map((v,i) => v.map((iv, ii) => iv+arr2[i][ii]));
+}
+====Comment====
