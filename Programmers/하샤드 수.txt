@@ -1,0 +1,7 @@
+====Answer====
+const solution = (x) => {
+    return x % [...String(x)].reduce((r,v) => Number(v)+r, 0)
+        ? false
+        : true;
+}
+====Comment====
