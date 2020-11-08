@@ -1,0 +1,18 @@
+====Answer====
+const fibonacci = n => {
+    const arr = [0,1];
+    while(n > 1) {
+        arr.push((arr[arr.length-1]+arr[arr.length-2])%1234567);
+        n--;
+    }
+    return arr.pop();
+}
+
+const solution = (n) => {
+    return n === 1 
+        // 1 이하의 n이 입력되었을 때,
+        ? 1 
+        // 2 이상의 n이 입력되었을 때,
+        : fibonacci(n);
+}
+====Comment====
