@@ -1,0 +1,31 @@
+====Answer====
+const createBinaryScaleArray = (n, arr) => {
+    return [...arr.map(v => {
+        const value = v.toString(2);
+        return [..."0".repeat(n-value.length)+value];
+    })]
+}
+
+const solution = (n, arr1, arr2) => {
+    const binaryArr1 = createBinaryScaleArray(n, arr1);
+    const binaryArr2 = createBinaryScaleArray(n, arr2);
+    
+    return binaryArr1.map((v,i) => 
+        v.map((iv, ii) => 
+            Number(iv) || Number(binaryArr2[i][ii]) 
+              ? "#"
+              : " "
+            ).join("") 
+    )
+}
+====Comment====
+function solution(n, arr1, arr2) {
+    return arr1.map((v, i) => addZero(n, (v | arr2[i]).toString(2)).replace(/1|0/g, a => +a ? '#' : ' '));
+}
+
+const addZero = (n, s) => {
+    return '0'.repeat(n - s.length) + s;
+}
+
+다른사람의 풀이를 보면 or 연산자로 값을 계산하고, bit로 만든다. 
+해당 문자가 1이나 0일때 대응되는 정규식을 이용하여 해당 값을 +로 숫자로 만들어 # 또는 공백으로 변환하는 작업이 끝나면 반환한다.
