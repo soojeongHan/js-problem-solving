@@ -1,0 +1,10 @@
+====Answer====
+const solution = s => {
+    return [...s].reduce((r,v) => {
+        r.length === 0 || r[r.length-1] !== v
+            ? r.push(v)
+            : r.pop();
+        return r;    
+    }, []).length === 0 ? 1 : 0;
+}
+====Comment====
