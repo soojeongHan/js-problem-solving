@@ -1,0 +1,5 @@
+====Answer====
+const solution = (arr) => {
+    return arr.reduce((r,v) => v+r)/arr.length;
+}
+====Comment====
