@@ -1,0 +1,12 @@
+====Answer====
+process.stdin.setEncoding('utf8');
+process.stdin.on('data', data => {
+    const n = data.split(" ");
+    const row = "*".repeat(Number(n[0]));
+    const column = Number(n[1]);
+    
+    for(let i = 0; i < column; i++) {
+        console.log(row);
+    }
+});
+====Comment====
