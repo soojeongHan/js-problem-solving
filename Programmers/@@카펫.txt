@@ -1,0 +1,10 @@
+====Answer====
+function solution(brown, yellow) {
+    if(brown % 2 !== 0) return [0,0];
+    const a = brown/2 + 2;
+    const b = brown + yellow;
+    const r = a/2 + Math.sqrt(a*a/4 - b);
+    const l = a-r;
+    return r > l ? [r,l] : [l,r];
+}
+====Comment====
