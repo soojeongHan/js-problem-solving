@@ -1,0 +1,17 @@
+====Answer====
+const calGcd = (min, max) =>{
+  return (min % max) === 0 ? max : calGcd(max, min % max);
+}
+
+const calLcm = (min, max) =>{
+  return min * max / calGcd(min, max);
+}
+
+const solution = (arr) => {
+    let lcmNum = arr[0];
+    for(let i = 1, N = arr.length; i < N; i++) {
+        lcmNum = calLcm(Math.min(arr[i],lcmNum), Math.max(arr[i],lcmNum));
+    }
+    return lcmNum;
+}
+====Comment====
