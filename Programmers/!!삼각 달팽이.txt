@@ -1,0 +1,18 @@
+====Answer====
+function solution(n) {
+  const a = Array(n).fill().map((_, i) => Array(i + 1).fill());
+  let row = -1;
+  let col = 0;
+  let fill = 0;
+  for (let i = n; i > 0; i -= 3) {
+    a[++row][col] = ++fill;
+    for (let j = 0; j < i - 1; j++) a[++row][col] = ++fill;
+    for (let j = 0; j < i - 1; j++) a[row][++col] = ++fill;
+    for (let j = 0; j < i - 2; j++) a[--row][--col] = ++fill;
+  }
+  return a.flat();
+}
+====Comment====
+인덱스가 0부터 (1부터 n까지의 합-1)까지 순서대로 값을 집어넣을 수 있는 방법은 없을까 고민하다가
+풀리지않아서 풀이를 이용했다.
+결국 인덱스가 아닌 값에 대해서 1부터 (1부터 n까지의 합)을 집어넣는다.
