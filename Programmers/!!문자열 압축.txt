@@ -1,0 +1,27 @@
+====Answer====
+-
+====Comment====
+const solution = s => {
+  const range = [...Array(Math.ceil(s.length/2))].map((_, i) => i + 1);
+  const make = ([a, l, c]) => `${a}${c > 1 ? c : ''}${l}`;
+  return Math.min(...range.map(i => {
+      return compress(s, i, make).length;
+  }));
+};
+
+const compress = (s, n, make) => {
+  const reduceChunks = chunk(s, n).reduce(
+      ([a, l, c], e) => {
+          return e === l ? [a, l, c + 1] : [make([a, l, c]), e, 1]
+      },
+      ['', '', 0]
+    );
+    
+  return make(reduceChunks);
+};
+
+const chunk = (s, n) =>
+  s.length <= n ? [s] : [s.slice(0, n), ...chunk(s.slice(n), n)];
+
+내가 푼 코드는 너무 복잡해서 다른 사람이 푼 코드를 올렸다.
+문제를 좀 더 쪼개고, 단순화할 수 있게 노력해야겠다.
