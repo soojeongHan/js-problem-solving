@@ -1,0 +1,11 @@
+====Answer====
+const gcd = (min,max) => {
+    return min%max === 0 ? max : gcd(max, min%max);
+}
+
+const solution = (w, h) => {
+    const min = Math.max(w,h);
+    const max = Math.min(w,h);
+    return (w*h) - (w+h-gcd(min,max));
+}
+====Comment====
