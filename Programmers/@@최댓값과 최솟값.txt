@@ -1,0 +1,6 @@
+====Answer====
+const solution = (s) => {
+    const arr = s.split(" ").map(v => +v).sort((i,j) => i-j);
+    return arr[0] + " " + arr.pop();
+}
+====Comment====
