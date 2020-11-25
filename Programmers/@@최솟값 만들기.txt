@@ -1,0 +1,8 @@
+====Answer====
+const solution = (A,B) => {
+    const sortedB = B.sort((i,j) => i-j);
+    return A.sort((i,j) => i-j).reduce((r,v) => {
+        return r += v * sortedB.pop();
+    }, 0);
+}
+====Comment====
