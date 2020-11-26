@@ -1,0 +1,16 @@
+====Answer====
+const convertBinary = n => {
+    const binaryN = n.toString(2);
+    return [...binaryN].filter(v => v==="1").length;
+}
+
+const solution = (n) => {
+    const countN = convertBinary(n);
+    let i = n+1;
+    while(i < 1000000) {
+        const value = convertBinary(i);
+        if(value === countN) return i;
+        i++;
+    }
+}
+====Comment====
