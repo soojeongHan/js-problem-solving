@@ -1,0 +1,8 @@
+====Answer====
+const solution = (numbers) => {
+    const answer = numbers.map(v => v+'').sort((i,j) => {
+        return (j+i) - (i+j);
+    }).join("");
+    return answer[0] === "0" ? "0" : answer;
+}
+====Comment====
