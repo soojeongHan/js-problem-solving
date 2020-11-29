@@ -1,0 +1,10 @@
+====Answer====
+const solution = (n) => {
+    const limitNumberOfCases = 1000000007;
+    return Array(n-2).fill(0).reduce((r,v) => {
+        const N = r.length;
+        r.push((r[N-1] + r[N-2]) % limitNumberOfCases);
+        return r;
+    }, [1,2]).pop();
+}
+====Comment====
