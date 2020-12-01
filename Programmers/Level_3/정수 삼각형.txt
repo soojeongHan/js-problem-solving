@@ -1,0 +1,56 @@
+====Answer====
+const solution = (triangle) => {
+    // 불변성을 위해 새로운 배열을 만든다.
+    const tri = [...triangle];
+
+    for(let i = 1; i < tri.length; i++) {
+        for(let j = 0; j < tri[i].length; j++) {
+            // 배열의 첫번째 값은 left 값이 없고, 마지막 값은 right 값이 없기 때문에, 삼항연산자를 이용하여 값을 걸러낸다.
+            // -1인 이유 ? 예외 숫자를 둔 것이다. 삼각형을 이루고 있는 숫자는 0 이상 9,999 이하의 정수이기 때문이다.
+            const left = j > 0 ? tri[i-1][j-1] : -1;
+            const right = j < tri[i].length-1 ? tri[i-1][j] : -1;
+            // 부모 노드 중에서 대각선 방향으로 왼쪽 값과 오른쪽 값에서
+            // 가장 큰 값을 해당 배열의 값과 더하여 기존 배열에 대입한다.
+            tri[i][j] += Math.max(left, right);
+        }
+    }
+    // 마지막 배열의 값들은 거쳐간 숫자의 합 중 가장 큰 값이다.
+    // 마지막 배열의 값 중에서 가장 큰 값을 찾아서 반환한다.
+    return Math.max(...tri.pop());
+}
+====Comment====
+반복문을 돌릴때마다, 배열의 길이를 체크하는게 비효율적이라서
+별도로 변수를 만들고 가독성을 위한 코드이다.
+const solution = (triangle) => {
+    // 불변성을 위해 새로운 배열을 만든다.
+    const tri = [...triangle];
+    
+    const N = tri.length;
+    for(let i = 1; i < N; i++) {
+        const parentNode = tri[i-1];
+        const node = tri[i];
+        const nodeLength = node.length;
+        for(let j = 0; j < nodeLength; j++) {
+            // 배열의 첫번째 값은 left 값이 없고, 마지막 값은 right 값이 없기 때문에, 삼항연산자를 이용하여 값을 걸러낸다.
+            // -1인 이유 ? 예외 숫자를 둔 것이다. 삼각형을 이루고 있는 숫자는 0 이상 9,999 이하의 정수이기 때문이다.
+            const left = j > 0 ? parentNode[j-1] : -1;
+            const right = j < node.length-1 ? parentNode[j] : -1;
+            // 부모 노드 중에서 대각선 방향으로 왼쪽 값과 오른쪽 값에서
+            // 가장 큰 값을 해당 배열의 값과 더하여 기존 배열에 대입한다.
+            tri[i][j] = node[j] + Math.max(left, right);
+        }
+    }
+    // 마지막 배열의 값들은 거쳐간 숫자의 합 중 가장 큰 값이다.
+    // 마지막 배열의 값 중에서 가장 큰 값을 찾아서 반환한다.
+    const lastNode = tri.pop();
+    return Math.max(...lastNode);
+}
+
+다른 사람이 reduce, map를 이용하여 푼 코드이다.
+function solution(triangle) {    
+    return Math.max(...triangle.reduce((cost, line) => {        
+        return line.map((v, index) => {            
+            return v + Math.max((index < cost.length ? cost[index] : 0), (index > 0 ? cost[index-1] : 0));
+        });
+    }, []));    
+}
