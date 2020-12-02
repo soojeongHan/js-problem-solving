@@ -1,0 +1,29 @@
+====Answer====
+# 1. Wrong Answer
+function solution(a) {
+    let answer = 0;
+    for(let i = 0; i < a.length; i++) {
+        const value = a[i];
+        const left = !a.slice(0,i).some(v => value > v);
+        const right = !a.slice(i+1).some(v => value > v);
+        answer = left || right ? answer+1 : answer;
+    }
+    return answer;
+}
+
+# 2. Answer
+function solution(a) {
+    const { left_max, right_max, answer } = a.slice(1, a.length-1).reduce((r,v,i) => {
+        if(r.left_max > v) {
+            r.left_max = v;
+            r.answer++;
+        }
+        if(r.right_max > a[a.length-2-i]) {
+            r.right_max = a[a.length-2-i];
+            r.answer++;
+        }
+        return r;
+    }, {answer : 2, left_max: a[0], right_max: a[a.length-1]});
+    return left_max === right_max ? answer-1 : answer;
+}
+====Comment====
