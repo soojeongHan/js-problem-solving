@@ -1,0 +1,11 @@
+====Question====
+https://leetcode.com/problems/binary-gap/
+====Answer====
+const binaryGap = n => {
+    const binary = n.toString(2);
+    const start = binary.indexOf("1");
+    const end = binary.lastIndexOf("1");
+    if(start === end) return 0;
+    return Math.max(...binary.slice(start, end+1).split("1").map(v => v.length))+1;
+};
+====Comment====
