@@ -1,0 +1,26 @@
+====Question====
+https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
+====Answer====
+const twoSum = (numbers, target) => {
+    /* 
+    const arr = [];
+    for(let i = 0; i < numbers.length; i++) {
+        for(let j = i+1; j < numbers.length; j++) {
+            if(numbers[i] + numbers[j] > target) break;
+            else if(numbers[i] + numbers[j] === target) return [i+1, j+1];
+        }
+    } 
+    */
+
+    const hash = new Map();
+    for(let i in numbers){
+        let j = target - numbers[i];
+        if(hash.has(j)){
+            const second = +hash.get(j)+1;
+            return [Math.min(+i+1, second), Math.max(+i+1, second)]
+        }
+        hash.set(numbers[i], i)
+    }
+
+};
+====Comment====
