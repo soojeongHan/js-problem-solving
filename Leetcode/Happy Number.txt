@@ -1,0 +1,23 @@
+====Question====
+https://leetcode.com/explore/interview/card/top-interview-questions-medium/113/math/815/
+====Answer====
+const isHappy = (n) => {
+    const set = new Set();
+    let number = n;
+    while(number !== 1) {
+        number = calNumber(number);
+        if(set.has(number)) return false;
+        set.add(number);
+    }
+    return true;
+};
+
+const calNumber = (n) => {
+    let tmpNum = 0;
+    while(n !== 0) {
+        tmpNum += (n%10)*(n%10);
+        n = Math.trunc(n/10);
+    }
+    return tmpNum;
+}
+====Comment====
