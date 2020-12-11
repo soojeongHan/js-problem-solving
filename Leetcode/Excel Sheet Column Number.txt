@@ -1,0 +1,11 @@
+====Question====
+https://leetcode.com/explore/interview/card/top-interview-questions-medium/113/math/817/
+====Answer====
+const titleToNumber = (s) => {
+    return [...s].map(v => v.charCodeAt()-"A".charCodeAt()+1)
+        .reverse()
+        .reduce((r,v,i) => {
+            return r += Math.pow(26, i)*v;
+        }, 0);
+};
+====Comment====
