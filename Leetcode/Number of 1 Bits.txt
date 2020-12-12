@@ -1,0 +1,7 @@
+====Question====
+https://leetcode.com/explore/interview/card/top-interview-questions-easy/99/others/565/
+====Answer====
+const hammingWeight = (n) => {
+    return [...n.toString(2)].filter(v => v === "1").length
+};
+====Comment====
