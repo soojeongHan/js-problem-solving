@@ -1,0 +1,10 @@
+====Question====
+https://leetcode.com/explore/interview/card/top-interview-questions-easy/92/array/549/
+====Answer====
+const singleNumber = (nums) => {
+    return nums.reduce((r,v) => r^v);
+};
+====Comment====
+추가 메모리를 사용하지 않고, 답을 구해낼 수 있는 방법이 없을까 고민하다
+문제에서 nums 배열의 모든 요소 중 하나를 제외하고는 2개가 포함되어 있기 때문에
+XOR 연산자를 이용하여 구하였다.
