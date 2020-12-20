@@ -1,0 +1,9 @@
+====Question====
+https://leetcode.com/explore/featured/card/top-interview-questions-easy/92/array/578/
+====Answer====
+const containsDuplicate = (nums) => {
+    return (new Set(nums)).size !== nums.length
+        ? true
+        : false;
+};
+====Comment====
