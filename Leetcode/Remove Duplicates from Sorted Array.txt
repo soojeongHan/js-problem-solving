@@ -1,0 +1,18 @@
+====Question====
+https://leetcode.com/explore/featured/card/top-interview-questions-easy/92/array/727/
+====Answer====
+/**
+ * @param {number[]} nums
+ * @return {number}
+*/
+const removeDuplicates = (nums) => {
+    let i = 0;
+    while(i < nums.length) {
+        if(nums[i] === nums[i+1]) nums.splice(i+1, 1);
+        else i++;
+    }
+};
+====Comment====
+in-place algorithm
+: 보조 데이터 구조를 사용하지 않고, 입력을 변환하는 알고리즘이다.
+하지만 보조 변수에 대해서 약간의 추가 저장공간을 허용한다.
