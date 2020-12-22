@@ -1,0 +1,76 @@
+* 모든 주석 삭제
+====Answer 1====
+const solution = (N) => { 
+    let notation = 0; 
+    let maxProductOfDigits = 0; 
+    for(let i = 2; i < 10; i++) { 
+        const productOfDigits = [...N.toString(i)].reduce((answer, value) => {
+            const num = Number(value); 
+            return num !== 0 ? answer*num : answer; 
+        }); 
+        if(productOfDigits >= maxProductOfDigits) { 
+            maxProductOfDigits = productOfDigits; notation = i; 
+        }
+    } 
+    return [notation, maxProductOfDigits]; 
+}
+
+====Answer 2====
+const transposeDate = (md, time) => Date.parse(new Date(`2019/${md}/${time}`)); 
+
+const createKioskObject = (n, customers) => {
+    const firstState = customers[0].split(" "); 
+    const initialState = transposeDate(firstState[0], firstState[1]); 
+    const kiosk = []; 
+    for(let i = 0; i < n; i++) {
+        kiosk.push({ 
+            id : i+1, 
+            lastWorkingTime : initialState-1, 
+            countMatchedPerson : 0, 
+         }); 
+    } 
+    return kiosk; 
+}
+
+const solution = (n, customers) => { 
+    const kiosks = createKioskObject(n, customers); 
+    
+    const result = customers.reduce((answer, value) => { 
+        const data = value.split(" "); 
+        const customerTime = transposeDate(data[0], data[1])+(data[2]*60000); 
+        const isntWorkingList = answer.filter(kiosk => customerTime > kiosk.lastWorkingTime); 
+
+        const arr = isntWorkingList.length !== 0 
+            ? isntWorkingList.sort((i,j) => i.lastWorkingTime-j.lastWorkingTime) 
+            : answer.sort((i,j) => i.lastWorkingTime-j.lastWorkingTime); 
+        const id = arr[0].id; 
+        return answer.map(value => value.id === id ? {...value, lastWorkingTime : customerTime, countMatchedPerson : value.countMatchedPerson+1} : value); 
+        }, kiosks); 
+    
+    return result.sort((i,j) => j.countMatchedPerson-i.countMatchedPerson)[0].countMatchedPerson; 
+}
+
+====Answer 3====
+const solution = (k, score) => {  
+    const arr = score.map((value, index, array) => { 
+        const result = Math.abs(value-array[index-1]);
+        return result ? result : -1; 
+    }) 
+
+    const maxFrequencyNumber = Array.from(arr.reduce((result ,value, index, array) => { 
+        if(value !== -1) { 
+            result.has(value) 
+                ? result.set(value, result.get(value)+1) 
+                : result.set(value, 1); 
+        } 
+        return result; 
+    }, new Map())).filter(value => value[1] >= k && value[1] > 1).map(value => value[0]); 
+
+    return score.length - arr.reduce((result, value, index, array) => { 
+        return maxFrequencyNumber.includes(value) 
+            ? maxFrequencyNumber.includes(array[index-1]) 
+                ? result += 1 
+                : result += 2 
+            : result;
+    }, 0); 
+}

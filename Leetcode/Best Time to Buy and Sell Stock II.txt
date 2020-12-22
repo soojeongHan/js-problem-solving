@@ -1,0 +1,11 @@
+====Question====
+https://leetcode.com/explore/featured/card/top-interview-questions-easy/92/array/564/
+====Answer====
+const maxProfit = (prices) => {
+    let answer = 0;
+    for(let i = 0; i < prices.length; i++) {
+        if(prices[i] > prices[i-1]) answer += prices[i] - prices[i-1];
+    }
+    return answer;
+};
+====Comment====
