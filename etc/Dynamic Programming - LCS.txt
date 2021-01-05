@@ -1,0 +1,26 @@
+====QUESTION====
+두 개의 문자열에서 순서대로 겹치는 문자가 최대 몇 개인지 구하는 문제
+====ANSWER====
+const LCS = (x, y) => {
+  const i = x.length;
+  const j = y.length;
+  
+  const result = Array(i+1).fill().map(v => []);
+  
+  for(let a = 0; a <= i; a++) {
+    for(let b = 0; b <= j; b++) {
+      // 베이스 값 설정
+      if(a === 0 || b === 0) result[a][b] = 0;
+      // 마지막 두 문자를 비교해서,
+        // 같으면,
+      else if(x[a-1] === y[b-1]) 
+        result[a][b] = result[a-1][b-1] + 1;
+        // 다르면,
+      else result[a][b] = Math.max(result[a-1][b], result[a][b-1]);
+    }
+  }
+  
+  return result.pop().pop();
+}
+const result = LCS('ABCBDAB', 'BDCABA'); // => 4
+// Bottom - Top이라 불리는 상향식 계산법
